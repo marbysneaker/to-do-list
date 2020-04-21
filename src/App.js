@@ -18,6 +18,7 @@ render() {
     <div className="App">
       <header className="App-header">
         <div className = "todo-list">
+          <h1>To Do List</h1>
           <ul>
           {this.state.list.map((todo,index)=>
               <li key={index}>{todo.text}</li>
@@ -25,6 +26,13 @@ render() {
             )}
           
           </ul>
+          <div className='input'>
+            <form className='input-todo'>
+              <input type='text' className='todo-item'></input>
+              <input type='submit' className='todo-button'></input>
+            
+            </form>
+          </div>
         </div>
       </header>
     </div>
