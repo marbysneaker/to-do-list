@@ -10,8 +10,19 @@ state = {
   list: [
   {text: "Buy eggs", done: false},
   {text: "Buy milk", done: true},
-  ]
+  ],
+  input: ''
   }
+onInputChange = (event) => {
+
+  this.setState({input:event.target.value})
+}
+onClicked = () => {
+  console.log(this.state.input)
+  this.state.list.push({text:this.state.input, done: false})
+  console.log(this.state.list)
+
+}
 
 render() {
   return (
@@ -27,11 +38,8 @@ render() {
           
           </ul>
           <div className='input'>
-            <form className='input-todo'>
-              <input type='text' className='todo-item'></input>
-              <input type='submit' className='todo-button'></input>
-            
-            </form>
+              <input type='text' className='todo-item' value={this.state.input} onChange={this.onInputChange}></input>
+              <input type='submit' className='todo-button' onClick={()=> this.onClicked()}></input>
           </div>
         </div>
       </header>
