@@ -11,7 +11,8 @@ state = {
   {text: "Buy eggs", done: false},
   {text: "Buy milk", done: true},
   ],
-  input: ''
+  input: '',
+  newList: [],
   }
 onInputChange = (event) => {
 
@@ -19,9 +20,18 @@ onInputChange = (event) => {
 }
 onClicked = () => {
   console.log(this.state.input)
-  this.state.list.push({text:this.state.input, done: false})
+  this.setState(prevState => ({
+    list: [...prevState.list, {text: this.state.input,done:false}]
+  }))
+  // this.state.list.push({text:this.state.input, done: false})
   console.log(this.state.list)
 
+}
+componentDidMount = () => {
+  let newData = this.state.list
+  this.setState({newList:newData})
+  console.log(this.state.newList)
+  this.forceUpdate()
 }
 
 render() {
