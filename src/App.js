@@ -8,8 +8,6 @@ class App extends Component{
 
 state = {
   list: [
-  {text: "Buy eggs", done: false},
-  {text: "Buy milk", done: true},
   ],
   input: '',
   newList: [],
@@ -33,20 +31,38 @@ componentDidMount = () => {
   console.log(this.state.newList)
   this.forceUpdate()
 }
+deleteItem = (index) => {
+  let arr = this.state.list
+  arr.splice(index,1)
+  this.setState({list:arr})
+  console.log(this.state.list.length)
+  
+}
+changeToDone = (index) => {
+  console.log(this.state.list[index].done)
+  let list = this.state.list
+  let done = this.state.list[index]
+  
+  if(done.done === false){
+    done.done = true
+    console.log(done.done)
+  }
+  else{
+    done.done = false
+    console.log(done.done)
+  }
+  
+  this.setState({list})
+}
 
 render() {
   return (
     <div className="App">
       <header className="App-header">
         <div className = "todo-list">
-          <h1>To Do List</h1>
-          <ul>
-          {this.state.list.map((todo,index)=>
-              <li key={index}>{todo.text}</li>
-            
-            )}
-          
-          </ul>
+          <h1>To Do List</h1>         
+          {(this.state.list != 0)? (this.state.list.map((todo,index)=>
+              <div key={index} onClick={() => this.changeToDone(index)}>{todo.text} {todo.done?'[X]':'[ ]'}</div><div></div>)):(<div>Nothing to do</div>)}
           <div className='input'>
               <input type='text' className='todo-item' value={this.state.input} onChange={this.onInputChange}></input>
               <input type='submit' className='todo-button' onClick={()=> this.onClicked()}></input>
