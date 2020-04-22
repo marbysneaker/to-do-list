@@ -53,6 +53,8 @@ onClicked = () => {
   }))
   // this.state.list.push({text:this.state.input, done: false})
   console.log(this.state.list)
+  this.setState({input:''})
+  this.setState({textInput:''})
 
 }
 // componentDidMount = () => {
