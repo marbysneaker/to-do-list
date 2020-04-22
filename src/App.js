@@ -62,7 +62,8 @@ render() {
         <div className = "todo-list">
           <h1>To Do List</h1>         
           {(this.state.list != 0)? (this.state.list.map((todo,index)=>
-              <div key={index} onClick={() => this.changeToDone(index)}>{todo.text} {todo.done?'[X]':'[ ]'}</div><div></div>)):(<div>Nothing to do</div>)}
+              <div key={index} >{todo.text} <button onClick={() => this.changeToDone(index)}>{todo.done?'[X]':'[ ]'}</button></div>
+              )):(<div>Nothing to do</div>)}
           <div className='input'>
               <input type='text' className='todo-item' value={this.state.input} onChange={this.onInputChange}></input>
               <input type='submit' className='todo-button' onClick={()=> this.onClicked()}></input>
