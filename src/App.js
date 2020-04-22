@@ -3,6 +3,19 @@ import logo from './logo.svg';
 import './App.css';
 
 
+const Emoji = props => (
+  <span
+    className="emoji"
+    role="img"
+    aria-label={props.label ? props.label : ""}
+    aria-hidden={props.label ? "false" : "true"}
+  >
+    {props.symbol}
+  </span>
+)
+
+
+
 class App extends Component{
 
 
@@ -55,6 +68,7 @@ changeToDone = (index) => {
   this.setState({list})
 }
 
+
 render() {
   return (
     <div className="App">
@@ -62,7 +76,9 @@ render() {
         <div className = "todo-list">
           <h1>To Do List</h1>         
           {(this.state.list != 0)? (this.state.list.map((todo,index)=>
-              <div key={index} >{todo.text} <button onClick={() => this.changeToDone(index)}>{todo.done?'[X]':'[ ]'}</button></div>
+              <div key={index} >{todo.text} 
+              <button onClick={() => this.changeToDone(index)}>{todo.done?<Emoji label="sheep" symbol="✅"/>:'❌'}</button>
+              <button onClick={()=> this.onClicked(index)}>Delete</button></div>
               )):(<div>Nothing to do</div>)}
           <div className='input'>
               <input type='text' className='todo-item' value={this.state.input} onChange={this.onInputChange}></input>
