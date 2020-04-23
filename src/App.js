@@ -57,7 +57,10 @@ onClicked = () => {
       console.log(this.state.list)
       this.setState({input:''})
       this.setState({textInput:''})
+
   }
+  console.log(this.state.list)
+  this.componentUpdate()
 }
 // componentDidMount = () => {
 //   let newData = this.state.list
@@ -106,7 +109,6 @@ onEdit = (index) => {
       this.setState({list})
       console.log(index)
       this.setState({modal:false})
-
   }
 }
   onToggle = (index) => {
@@ -125,6 +127,21 @@ onEdit = (index) => {
     this.setState({list})
     console.log(this.state.list)
   }
+  componentUpdate = () => {
+    // Storing to local storage
+      
+      const newlist1 = this.state.list;
+      localStorage.setItem("todolist", JSON.stringify(newlist1));
+      // Retrieving from local storage
+      const listString = localStorage.getItem("todolist");
+      if (listString) { // list exists
+      const list = JSON.parse(listString);
+      this.setState({
+      list: newlist1,
+      })
+      console.log(this.state.list);
+      }
+  }
 
 render() {
   return (
@@ -133,19 +150,22 @@ render() {
         <div className = "todo-list">
           <h1>To Do List</h1>         
           {(this.state.list != 0)? (this.state.list.map((todo,index)=>
-              <div key={index} ><span onClick={()=> this.showModal(index)}>{todo.text} </span>
-              <button onClick={() => this.changeToDone(index)}>{todo.done?<Emoji label="sheep" symbol="✅"/>:'❌'}</button>
-              <button className='delete' onClick={()=> this.deleteItem(index)}>Delete</button>
-              <button onClick={()=> this.onToggle(index)}>toggle</button>
-              
-             <br></br>
-              <div id="toggle" className={(todo.toggle)?("toggle-true"):('toggle-false')}>{(todo.toggle)?(<span>{this.state.list[index].notes}<span><br></br></span></span>):('')}</div>
-              
+              <div key={index} >
+                <div className = "todo-item">
+                <span onClick={()=> this.showModal(index)}>{todo.text} </span>
+                <button onClick={() => this.changeToDone(index)}>{todo.done?<Emoji label="sheep" symbol="✅"/>:'❌'}</button>
+                <button className='delete' onClick={()=> this.deleteItem(index)}>Delete</button>
+                <button onClick={()=> this.onToggle(index)}>toggle</button>
+                </div>
+                <div id="toggle" className={(todo.toggle)?("toggle-true"):('toggle-false')}>{(todo.toggle)?(<span>{this.state.list[index].notes}</span>):('')}</div>
+                <br></br>
               </div>
-              )):(<div>Nothing to do</div>)}
+              
+              )):(<div>Nothing to do</div>)
+              }
           <div className='input'>
               <input type='text' className='todo-item' value={this.state.input} onChange={this.onInputChange}></input><br></br><br></br>
-              <textarea placeholder='add notes' name="message" rows="10" cols="30" value={this.state.textInput} onChange={this.onTextInputChange}></textarea>
+              <textarea placeholder='add notes' name="message" rows="3" cols="30" value={this.state.textInput} onChange={this.onTextInputChange}></textarea>
               <br></br><br></br>
               <input type='submit' className='todo-button' onClick={()=> this.onClicked()}></input>
           </div>
@@ -153,14 +173,12 @@ render() {
           <br></br>
           {(this.state.modal)?(
            <div className='modal'>
-              <br></br>
-              <br></br>
               <input type='text' className='modal-tex' value={this.state.modalInput} onChange={this.onModalInputChange}></input>
 
               <br></br>
               <br></br>
 
-              <textarea placeholder='add notes' name="message" rows="10" cols="30" onChange={this.onModalTextInputChange} value={this.state.modalTextInput}>{this.state.modalTextInput}</textarea>
+              <textarea placeholder='add notes' name="message" rows="3" cols="30" onChange={this.onModalTextInputChange} value={this.state.modalTextInput}>{this.state.modalTextInput}</textarea>
               <br></br>
               <button onClick={()=> this.onEdit(this.state.modalIndex)}>Edit</button>
               
