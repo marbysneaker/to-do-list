@@ -13,8 +13,9 @@ const Emoji = props => (
     {props.symbol}
   </span>
 )
-
-
+var date = new Date().toJSON().slice(5,10);
+var time = new Date().toJSON().slice(11,16)
+var dateTime = date+' '+time;
 
 class App extends Component{
 
@@ -51,7 +52,7 @@ onClicked = () => {
   if(this.state.input){
       console.log(this.state.input)
       this.setState(prevState => ({
-        list: [...prevState.list, {text: this.state.input,notes:this.state.textInput,done:false,toggle:false}]
+        list: [...prevState.list, {text: this.state.input,notes:this.state.textInput,done:false,toggle:false,time:dateTime}]
       }))
       // this.state.list.push({text:this.state.input, done: false})
       console.log(this.state.list)
@@ -60,7 +61,7 @@ onClicked = () => {
 
   }
   console.log(this.state.list)
-  this.componentUpdate()
+ 
 }
 // componentDidMount = () => {
 //   let newData = this.state.list
@@ -127,20 +128,18 @@ onEdit = (index) => {
     this.setState({list})
     console.log(this.state.list)
   }
-  componentUpdate = () => {
+  componentDidMount(){
+    const userJSON = localStorage.getItem('user')
+    const user = JSON.parse(userJSON)
+    console.log(user)
+    this.setState({list:user})
+
+  }
+  componentDidUpdate(){
     // Storing to local storage
-      
-      const newlist1 = this.state.list;
-      localStorage.setItem("todolist", JSON.stringify(newlist1));
-      // Retrieving from local storage
-      const listString = localStorage.getItem("todolist");
-      if (listString) { // list exists
-      const list = JSON.parse(listString);
-      this.setState({
-      list: newlist1,
-      })
-      console.log(this.state.list);
-      }
+    const userJSON = JSON.stringify(this.state.list)
+    console.log(userJSON)
+    localStorage.setItem('user', userJSON)
   }
 
 render() {
@@ -152,7 +151,7 @@ render() {
           {(this.state.list != 0)? (this.state.list.map((todo,index)=>
               <div key={index} >
                 <div className = "todo-item">
-                <span onClick={()=> this.showModal(index)}>{todo.text} </span>
+                <span onClick={()=> this.showModal(index)}>{todo.text}</span><span className='time'>{todo.time} </span>
                 <button onClick={() => this.changeToDone(index)}>{todo.done?<Emoji label="sheep" symbol="✅"/>:'❌'}</button>
                 <button className='delete' onClick={()=> this.deleteItem(index)}>Delete</button>
                 <button onClick={()=> this.onToggle(index)}>toggle</button>

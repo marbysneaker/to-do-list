@@ -46,4 +46,7 @@
 .sheep {
   background-color: white;
 }
-
+.time {
+  font-size: 10px;
+  padding-left: 20px;
+}
