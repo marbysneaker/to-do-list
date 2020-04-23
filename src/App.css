@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+.toggle-true {
+  background-color: red ;
+  float: left;
+
+
+}
+.sheep {
+  background-color: white;
+}
+
