@@ -164,7 +164,7 @@ render() {
                 <button className='delete' onClick={()=> this.deleteItem(index)}>Delete</button>
                 <button onClick={()=> this.onToggle(index)}>toggle</button>
                 </div>
-                <div id="toggle" className={(todo.toggle)?("toggle-true"):('toggle-false')}>{(todo.toggle)?(this.state.list[index].notes):('')}</div>
+                <div id="toggle" className={(todo.toggle)?("toggle-true"):('toggle-false')}>{(todo.toggle)?this.state.list[index].notes:('')}</div>
               </div>
               
               )):(<div>Nothing to do</div>)

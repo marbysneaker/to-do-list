@@ -49,7 +49,8 @@ h1 span {
   width: 80px;
   height: 30px;
   border-radius: 9999em 9999em 9999em 9999em;
-  border: none;
+  border-style: ridge;
+  border-color: #2a2b2e;
   box-shadow:  9px 9px 16px #191d24, -9px -9px 16px #3a404b;
 }
 .input-button:active{
@@ -64,12 +65,19 @@ h1 span {
   border-style: solid;
   border-width: 5px;
   padding: 5px 20px;
+  border-radius: 30px ;
 
 }
 .todo-list-items div:nth-child(even){
-  background-color: white;
+  background-color: darkgrey;
+  border-radius: 5px;
 }
 .todo-item{
+  margin-top: 5px;
+  border-color: #0f4c75;
+  border-style: ridge;
+  border-radius: 5px;
+  overflow: hidden;
   display: grid;
   grid-template-columns: 30vw  10vw 1fr 1fr 1fr;
   grid-template-rows: auto;
@@ -81,6 +89,7 @@ h1 span {
   grid-row: 1;
   grid-column: 1;
   align-items: center;
+  padding-left: 5px;
 
 }
 .time{
@@ -99,7 +108,13 @@ h1 span {
   grid-column: 4;
 }
 .toggle-true {
-  width: 60vw;
+  padding: 5px 10px;
+  width: 55vw;
+  height: auto;
+  margin-right: 10%;
+  background-color: darkslategray;
+  color: aquamarine;
+  word-wrap: break-word;
 }
 .sheep {
   background-color: white;
