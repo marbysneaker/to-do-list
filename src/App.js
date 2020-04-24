@@ -36,7 +36,6 @@ state = {
   modalInput:"",
   modalTextInput:'',
   toggle:false,
-  buttonColor:'#282c34',
   }
 onInputChange = (event) => {
 
@@ -161,7 +160,7 @@ render() {
               <div key={index} >
                 <div className = "todo-item">
                 <span onClick={()=> this.showModal(index)}>{todo.text}</span><span className='time'>{todo.time} </span>
-                <button onClick={() => this.changeToDone(index)}>{todo.done?<Emoji label="sheep" symbol="✅"/>:'❌'}</button>
+                <button onClick={() => this.changeToDone(index)}>{todo.done?<Emoji className='todo-check' label="sheep" symbol="✅"/>:<Emoji className='todo-check' label="sheep" symbol='❌'/>}</button>
                 <button className='delete' onClick={()=> this.deleteItem(index)}>Delete</button>
                 <button onClick={()=> this.onToggle(index)}>toggle</button>
                 </div>
