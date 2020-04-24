@@ -159,13 +159,12 @@ render() {
           {(this.state.list != 0)? (this.state.list.map((todo,index)=>
               <div key={index} >
                 <div className = "todo-item">
-                <span onClick={()=> this.showModal(index)}>{todo.text}</span><span className='time'>{todo.time} </span>
+                <span className='todo-text' onClick={()=> this.showModal(index)}>{todo.text}</span><span className='time'>{todo.time} </span>
                 <button onClick={() => this.changeToDone(index)}>{todo.done?<Emoji className='todo-check' label="sheep" symbol="✅"/>:<Emoji className='todo-check' label="sheep" symbol='❌'/>}</button>
                 <button className='delete' onClick={()=> this.deleteItem(index)}>Delete</button>
                 <button onClick={()=> this.onToggle(index)}>toggle</button>
                 </div>
-                <div id="toggle" className={(todo.toggle)?("toggle-true"):('toggle-false')}>{(todo.toggle)?(<p>{this.state.list[index].notes}</p>):('')}</div>
-                <br></br>
+                <div id="toggle" className={(todo.toggle)?("toggle-true"):('toggle-false')}>{(todo.toggle)?(this.state.list[index].notes):('')}</div>
               </div>
               
               )):(<div>Nothing to do</div>)
