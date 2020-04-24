@@ -22,12 +22,44 @@ font-family: 'Bungee Inline', cursive;
 h1{
   grid-row: 1;
   text-align: center;
+  font-size: 50px;
+  font-weight: 900;
+  font-family: var(--alfa--font);
 }
-.todo-list-items {
-  grid-row: 3 ;
+h1 span {
+  background: url(https://media.giphy.com/media/ZnKdSM5piRLDW/giphy.gif);
+  background-size: cover;
+  background-position: center;
+  color: transparent;
+  -webkit-background-clip: text;  
 }
 .input {
   grid-row: 2;
+  text-align: center;
+}
+.input-item{
+  background-color: white;
+}
+.input-notes{
+  background-color: white;
+}
+.input-button {
+  color: white;
+  outline: none;
+  width: 80px;
+  height: 30px;
+  border-radius: 9999em 9999em 9999em 9999em;
+  border: none;
+  box-shadow:  9px 9px 16px #191d24, -9px -9px 16px #3a404b;
+}
+.input-button:active{
+  background-color:#29447a;
+}
+
+
+
+.todo-list-items {
+  grid-row: 3 ;
 }
 .toggle-true {
   background-color: red ;

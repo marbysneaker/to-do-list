@@ -16,6 +16,9 @@ const Emoji = props => (
 var date = new Date().toJSON().slice(5,10);
 var time = new Date().toJSON().slice(11,16)
 var dateTime = date+' '+time;
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 class App extends Component{
 
@@ -32,7 +35,8 @@ state = {
   modalIndex:null,
   modalInput:"",
   modalTextInput:'',
-  toggle:false
+  toggle:false,
+  buttonColor:'#282c34',
   }
 onInputChange = (event) => {
 
@@ -50,6 +54,7 @@ onModalTextInputChange = (event) => {
 }
 onClicked = () => {
   if(this.state.input){
+      this.setState({buttonColor:'red'})
       console.log(this.state.input)
       this.setState(prevState => ({
         list: [...prevState.list, {text: this.state.input,notes:this.state.textInput,done:false,toggle:false,time:dateTime}]
@@ -58,9 +63,11 @@ onClicked = () => {
       console.log(this.state.list)
       this.setState({input:''})
       this.setState({textInput:''})
-
   }
   console.log(this.state.list)
+  sleep(5000)
+  console.log(this.state.buttonColor)
+  
  
 }
 // componentDidMount = () => {
@@ -133,6 +140,7 @@ onEdit = (index) => {
     const user = JSON.parse(userJSON)
     console.log(user)
     this.setState({list:user})
+    this.setState({buttonColor:'#282c34'})
 
   }
   componentDidUpdate(){
@@ -147,7 +155,8 @@ render() {
     <div className="App">
       <header className="App-header">
         <div className = "todo-list">
-          <h1>To Do List</h1>         
+          <h1><span>To Do List</span></h1>   
+          <div className='todo-list-items'>     
           {(this.state.list != 0)? (this.state.list.map((todo,index)=>
               <div key={index} >
                 <div className = "todo-item">
@@ -162,11 +171,12 @@ render() {
               
               )):(<div>Nothing to do</div>)
               }
+          </div> 
           <div className='input'>
-              <input type='text' className='todo-item' value={this.state.input} onChange={this.onInputChange}></input><br></br><br></br>
-              <textarea placeholder='add notes' name="message" rows="3" cols="30" value={this.state.textInput} onChange={this.onTextInputChange}></textarea>
+              <input type='text' placeholder='add todo item'className='input-item' value={this.state.input} onChange={this.onInputChange}></input><br></br><br></br>
+              <textarea className='input-notes' placeholder='add notes' name="message" rows="3" cols="30" value={this.state.textInput} onChange={this.onTextInputChange}></textarea>
               <br></br><br></br>
-              <input type='submit' className='todo-button' onClick={()=> this.onClicked()}></input>
+              <input type='submit' className='input-button' onClick={()=> this.onClicked()} ></input>
           </div>
           <br></br>
           <br></br>
