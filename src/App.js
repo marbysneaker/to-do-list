@@ -112,7 +112,8 @@ showModal = index => {
 onEdit = (index) => {
   if(this.state.modalInput){
       let list = this.state.list
-      list.splice(index, 1 , {text:this.state.modalInput,notes:this.state.modalTextInput,done:false})
+      let time = this.state.list[index].time
+      list.splice(index, 1 , {text:this.state.modalInput,notes:this.state.modalTextInput,done:false,time:dateTime})
       this.setState({list})
       console.log(index)
       this.setState({modal:false})
@@ -135,12 +136,14 @@ onEdit = (index) => {
     console.log(this.state.list)
   }
   componentDidMount(){
+    
     const userJSON = localStorage.getItem('user')
     const user = JSON.parse(userJSON)
     console.log(user)
+    for (let i of user){
+      i.toggle = false
+  }
     this.setState({list:user})
-    this.setState({buttonColor:'#282c34'})
-
   }
   componentDidUpdate(){
     // Storing to local storage
@@ -157,15 +160,16 @@ render() {
           <h1><span>To Do List</span></h1>   
           <div className='todo-list-items'>     
           {(this.state.list != 0)? (this.state.list.map((todo,index)=>
-              <div key={index} >
-                <div className = "todo-item">
-                <span className='todo-text' onClick={()=> this.showModal(index)}>{todo.text}</span><span className='time'>{todo.time} </span>
+              
+                <div key={index} className = "todo-item">
+                <span className='todo-text' onClick={()=> this.onToggle(index)}>{todo.text}</span><span className='time'>{todo.time} </span>
                 <button onClick={() => this.changeToDone(index)}>{todo.done?<Emoji className='todo-check' label="sheep" symbol="✅"/>:<Emoji className='todo-check' label="sheep" symbol='❌'/>}</button>
                 <button className='delete' onClick={()=> this.deleteItem(index)}>Delete</button>
-                <button onClick={()=> this.onToggle(index)}>toggle</button>
-                </div>
+                <button onClick={()=> this.showModal(index)}>Edit</button>
+                
                 <div id="toggle" className={(todo.toggle)?("toggle-true"):('toggle-false')}>{(todo.toggle)?this.state.list[index].notes:('')}</div>
               </div>
+              
               
               )):(<div>Nothing to do</div>)
               }

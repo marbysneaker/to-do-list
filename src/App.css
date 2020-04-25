@@ -11,11 +11,10 @@ font-family: 'Bungee Inline', cursive;
   height: 100 vh;
   width: 100vw;
   display: grid;
-  grid-template-rows: 100px 25% auto;
+  grid-template-rows: 15vh 30vh 65vh;
   text-align: center;
   box-sizing: border-box;
   background-color: #282c34;
-
 
 }
 h1{
@@ -33,14 +32,24 @@ h1 span {
   -webkit-background-clip: text;  
 }
 .input {
+  padding: 20px;
   grid-row: 2;
   text-align: center;
+  border-radius: 5px;
 }
 .input-item{
   background-color: white;
+  width: 30vw;
+  height: 20px;
+  border-radius: 5px;
+  font-size: 20px;
 }
 .input-notes{
   background-color: white;
+  width: 40vw;
+  height: 10vh;
+  border-radius: 5px;
+  font-size: 15px;
 }
 .input-button {
   color: white;
@@ -62,35 +71,35 @@ h1 span {
 .todo-list-items {
   grid-row: 3 ;
   width: 80vw;
+  height: 50vh;
   border-color: black;
   border-style: solid;
   border-width: 5px;
-  padding: 5px 20px;
+  padding: 30px 20px;
   border-radius: 30px ;
   overflow: scroll;
   display: grid;
   margin-left: auto;
   margin-right: auto;
+  background-color: #349de2;
+ 
+}
 
-}
-.todo-list-items div:nth-child(even){
-  background-color: darkgrey;
-  border-radius: 5px;
-  overflow: hidden;
-  margin-top: 5px;
-}
 .todo-item{
-  margin-top: 5px;
-  border-color: #0f4c75;
-  border-style: ridge;
-  border-radius: 5px;
+  box-sizing: content-box;
+  border-color: #0a0d0f;
+  border-style: solid;
+  border-radius: 10px;
   display: grid;
   grid-template-columns: 30vw  10vw 1fr 1fr 1fr;
-  grid-template-rows: auto;
   grid-column-gap: 5px;
-
-  
+  margin-top: 5px;
+  background-color: #29447a;
 }
+.todo-item:nth-child(even){
+  background-color: darkgrey;
+}
+
 .todo-text{
   display: grid;
   grid-row: 1;
@@ -115,17 +124,20 @@ h1 span {
   grid-column: 4;
 }
 .toggle-true {
-  padding: 5px 10px;
-  width: 55vw;
+  grid-row: 2;
+  grid-column: 1/6;
+  width: 100%;
   height: auto;
-  margin-right: 10%;
   background-color: darkslategray;
   color: aquamarine;
   word-wrap: break-word;
   margin-top: 5px;
   border-radius: 5px;
-  margin-bottom: 5px;
 }
+.toggle-false{
+  height: 0vh !important;
+}
+
 .sheep {
   background-color: white;
 }
@@ -135,4 +147,18 @@ h1 span {
 }
 .todo-item {
   font-family: var(--alfa--font);
+}
+.modal {
+  position: absolute;
+  top: 20%;
+  right: 30%;
+  width: 40vw;
+  height: 50vh;
+  z-index: 2;
+  background-color: #349de2;
+  border-color: #0a0d0f;
+  border-radius: 10px;
+  border-width: 2px;
+  border-style: ridge;
+  padding-top: 15vh;
 }
