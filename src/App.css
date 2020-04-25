@@ -8,14 +8,14 @@ font-family: 'Bungee Inline', cursive;
 }
 
 .todo-list {
-  height: 100vh;
+  height: 100 vh;
   width: 100vw;
   display: grid;
   grid-template-rows: 100px 25% auto;
-  padding-left: 20vw;
-  padding-right: 20vw;
+  text-align: center;
   box-sizing: border-box;
   background-color: #282c34;
+
 
 }
 h1{
@@ -61,27 +61,34 @@ h1 span {
 
 .todo-list-items {
   grid-row: 3 ;
+  width: 80vw;
   border-color: black;
   border-style: solid;
   border-width: 5px;
   padding: 5px 20px;
   border-radius: 30px ;
+  overflow: scroll;
+  display: grid;
+  margin-left: auto;
+  margin-right: auto;
 
 }
 .todo-list-items div:nth-child(even){
   background-color: darkgrey;
   border-radius: 5px;
+  overflow: hidden;
+  margin-top: 5px;
 }
 .todo-item{
   margin-top: 5px;
   border-color: #0f4c75;
   border-style: ridge;
   border-radius: 5px;
-  overflow: hidden;
   display: grid;
   grid-template-columns: 30vw  10vw 1fr 1fr 1fr;
   grid-template-rows: auto;
   grid-column-gap: 5px;
+
   
 }
 .todo-text{
@@ -115,6 +122,9 @@ h1 span {
   background-color: darkslategray;
   color: aquamarine;
   word-wrap: break-word;
+  margin-top: 5px;
+  border-radius: 5px;
+  margin-bottom: 5px;
 }
 .sheep {
   background-color: white;
