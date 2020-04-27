@@ -165,7 +165,7 @@ render() {
                 <span className='todo-text' onClick={()=> this.onToggle(index)}>{todo.text}</span><span className='time'>{todo.time} </span>
                 <button onClick={() => this.changeToDone(index)}>{todo.done?<Emoji className='todo-check' label="sheep" symbol="✅"/>:<Emoji className='todo-check' label="sheep" symbol='❌'/>}</button>
                 <button className='delete' onClick={()=> this.deleteItem(index)}>Delete</button>
-                <button onClick={()=> this.showModal(index)}>Edit</button>
+                <button className='toggle-button' onClick={()=> this.showModal(index)}>Edit</button>
                 
                 <div id="toggle" className={(todo.toggle)?("toggle-true"):('toggle-false')}>{(todo.toggle)?this.state.list[index].notes:('')}</div>
               </div>

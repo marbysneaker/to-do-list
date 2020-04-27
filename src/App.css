@@ -124,6 +124,22 @@ h1 span {
   grid-row: 1;
   grid-column: 4;
 }
+.toggle-button {
+  grid-row: 1;
+  grid-column: 5;
+  color: white;
+  background-color: #282c34;
+  outline: none;
+  width: 60px;
+  height: 30px;
+  border-radius: 9999em 9999em 9999em 9999em;
+  border-style: ridge;
+  /* border-color: #2a2b2e; */
+  /* box-shadow:  9px 9px 16px #191d24, -9px -9px 16px #3a404b; */
+  margin-left: auto;
+  margin-right: auto;
+  margin: auto auto;
+}
 .toggle-true {
   grid-row: 2;
   box-sizing: border-box;
