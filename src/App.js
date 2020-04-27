@@ -148,7 +148,7 @@ onEdit = (index) => {
   componentDidUpdate(){
     // Storing to local storage
     const userJSON = JSON.stringify(this.state.list)
-    console.log(userJSON)
+    
     localStorage.setItem('user', userJSON)
   }
 
@@ -184,14 +184,14 @@ render() {
           <br></br>
           {(this.state.modal)?(
            <div className='modal'>
-              <input type='text' className='modal-tex' value={this.state.modalInput} onChange={this.onModalInputChange}></input>
+              <input type='text' className='modal-text' value={this.state.modalInput} onChange={this.onModalInputChange}></input>
 
               <br></br>
               <br></br>
 
-              <textarea placeholder='add notes' name="message" rows="3" cols="30" onChange={this.onModalTextInputChange} value={this.state.modalTextInput}>{this.state.modalTextInput}</textarea>
+              <textarea className='modal-notes' placeholder='add notes' name="message" rows="3" cols="30" onChange={this.onModalTextInputChange} value={this.state.modalTextInput}>{this.state.modalTextInput}</textarea>
               <br></br>
-              <button onClick={()=> this.onEdit(this.state.modalIndex)}>Edit</button>
+              <button className='modal-button' onClick={()=> this.onEdit(this.state.modalIndex)}>Edit</button>
               
            
            </div>

@@ -86,6 +86,7 @@ h1 span {
 }
 
 .todo-item{
+  /* padding: 5px 10px; */
   box-sizing: content-box;
   border-color: #0a0d0f;
   border-style: solid;
@@ -125,14 +126,19 @@ h1 span {
 }
 .toggle-true {
   grid-row: 2;
+  box-sizing: border-box;
   grid-column: 1/6;
   width: 100%;
   height: auto;
   background-color: darkslategray;
   color: aquamarine;
   word-wrap: break-word;
-  margin-top: 5px;
+  margin-top: 10px;
   border-radius: 5px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: flex-start;
+
 }
 .toggle-false{
   height: 0vh !important;
@@ -153,12 +159,40 @@ h1 span {
   top: 20%;
   right: 30%;
   width: 40vw;
-  height: 50vh;
+  height: 30vh;
   z-index: 2;
   background-color: #349de2;
   border-color: #0a0d0f;
   border-radius: 10px;
   border-width: 2px;
   border-style: ridge;
-  padding-top: 15vh;
+  padding-top: 10vh;
+}
+
+.modal-text{
+  background-color: white;
+  width: 30vw;
+  height: 20px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+.modal-notes{
+  background-color: white;
+  width: 30vw;
+  height: 10vh;
+  border-radius: 5px;
+  font-size: 15px;
+}
+.modal-button{
+  margin-top: 20px;
+  color: white;
+  background-color: #349de2;
+  outline: none;
+  width: 80px;
+  height: 30px;
+  border-radius: 9999em 9999em 9999em 9999em;
+  border-style: solid;
+  border-color: #349de2;
+  box-shadow:  9px 9px 16px #076fb4, -9px -9px 16px #5cb7f3;
+
 }
