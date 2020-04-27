@@ -105,8 +105,8 @@ h1 span {
   display: grid;
   grid-row: 1;
   grid-column: 1;
-  align-items: center;
   padding-left: 5px;
+  text-align: left;
 
 }
 .time{
