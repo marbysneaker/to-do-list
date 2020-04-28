@@ -1,0 +1,214 @@
+
+@import url('https://fonts.googleapis.com/css?family=Alfa+Slab+One|Bungee+Inline|Roboto&display=swap');
+
+:root {
+--alfa--font: 'Alfa Slab One', cursive;
+font-family: 'Roboto', sans-serif;
+font-family: 'Bungee Inline', cursive;
+}
+
+.todo-list {
+  height: 100 vh;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: 15vh 30vh 65vh;
+  text-align: center;
+  box-sizing: border-box;
+  background-color: #282c34;
+
+}
+h1{
+  grid-row: 1;
+  text-align: center;
+  font-size: 50px;
+  font-weight: 900;
+  font-family: var(--alfa--font);
+}
+h1 span {
+  background: url(https://media.giphy.com/media/ZnKdSM5piRLDW/giphy.gif);
+  background-size: cover;
+  background-position: center;
+  color: transparent;
+  -webkit-background-clip: text;  
+}
+.input {
+  padding: 20px;
+  grid-row: 2;
+  text-align: center;
+  border-radius: 5px;
+}
+.input-item{
+  background-color: white;
+  width: 30vw;
+  height: 20px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+.input-notes{
+  background-color: white;
+  width: 40vw;
+  height: 10vh;
+  border-radius: 5px;
+  font-size: 15px;
+}
+.input-button {
+  color: white;
+  background-color: #282c34;
+  outline: none;
+  width: 80px;
+  height: 30px;
+  border-radius: 9999em 9999em 9999em 9999em;
+  border-style: ridge;
+  border-color: #2a2b2e;
+  box-shadow:  9px 9px 16px #191d24, -9px -9px 16px #3a404b;
+}
+.input-button:active{
+  background-color:#29447a;
+}
+
+
+
+.todo-list-items {
+  grid-row: 3 ;
+  width: 80vw;
+  height: 50vh;
+  border-color: black;
+  border-style: solid;
+  border-width: 5px;
+  padding: 30px 20px;
+  border-radius: 30px ;
+  overflow: scroll;
+  display: grid;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #349de2;
+ 
+}
+
+.todo-item{
+  /* padding: 5px 10px; */
+  box-sizing: content-box;
+  border-color: #0a0d0f;
+  border-style: solid;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 30vw  10vw 1fr 1fr 1fr;
+  grid-column-gap: 5px;
+  margin-top: 5px;
+  background-color: #29447a;
+}
+.todo-item:nth-child(even){
+  background-color: darkgrey;
+}
+
+.todo-text{
+  display: grid;
+  grid-row: 1;
+  grid-column: 1;
+  padding-left: 5px;
+  text-align: left;
+
+}
+.time{
+  grid-row: 1;
+  grid-column: 2;
+  display: grid;
+  align-items: center;
+
+}
+.todo-check{
+  grid-row: 1;
+  grid-column: 3;
+}
+.delete {
+  grid-row: 1;
+  grid-column: 4;
+}
+.toggle-button {
+  grid-row: 1;
+  grid-column: 5;
+  color: white;
+  background-color: #282c34;
+  outline: none;
+  width: 60px;
+  height: 30px;
+  border-radius: 9999em 9999em 9999em 9999em;
+  border-style: ridge;
+  /* border-color: #2a2b2e; */
+  /* box-shadow:  9px 9px 16px #191d24, -9px -9px 16px #3a404b; */
+  margin-left: auto;
+  margin-right: auto;
+  margin: auto auto;
+}
+.toggle-true {
+  grid-row: 2;
+  box-sizing: border-box;
+  grid-column: 1/6;
+  width: 100%;
+  height: auto;
+  background-color: darkslategray;
+  color: aquamarine;
+  word-wrap: break-word;
+  margin-top: 10px;
+  border-radius: 5px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: flex-start;
+
+}
+.toggle-false{
+  height: 0vh !important;
+}
+
+.sheep {
+  background-color: white;
+}
+.time {
+  font-size: 10px;
+  padding-left: 20px;
+}
+.todo-item {
+  font-family: var(--alfa--font);
+}
+.modal {
+  position: absolute;
+  top: 20%;
+  right: 30%;
+  width: 40vw;
+  height: 30vh;
+  z-index: 2;
+  background-color: #349de2;
+  border-color: #0a0d0f;
+  border-radius: 10px;
+  border-width: 2px;
+  border-style: ridge;
+  padding-top: 10vh;
+}
+
+.modal-text{
+  background-color: white;
+  width: 30vw;
+  height: 20px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+.modal-notes{
+  background-color: white;
+  width: 30vw;
+  height: 10vh;
+  border-radius: 5px;
+  font-size: 15px;
+}
+.modal-button{
+  margin-top: 20px;
+  color: white;
+  background-color: #349de2;
+  outline: none;
+  width: 80px;
+  height: 30px;
+  border-radius: 9999em 9999em 9999em 9999em;
+  border-style: solid;
+  border-color: #349de2;
+  box-shadow:  9px 9px 16px #076fb4, -9px -9px 16px #5cb7f3;
+
+}
