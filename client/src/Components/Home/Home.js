@@ -111,7 +111,7 @@ showModal = index => {
 onEdit = (index) => {
   if(this.state.modalInput){
       let list = this.state.list
-      let time = this.state.list[index].time
+      // let time = this.state.list[index].time
       list.splice(index, 1 , {text:this.state.modalInput,notes:this.state.modalTextInput,done:false,time:dateTime})
       this.setState({list})
       console.log(index)
@@ -135,15 +135,19 @@ onEdit = (index) => {
     console.log(this.state.list)
   }
   componentDidMount(){
-    
     const userJSON = localStorage.getItem('user')
     const user = JSON.parse(userJSON)
+    if (user){
+    
     console.log(user)
-    for (let i of user){
-      i.toggle = false
-  }
+    if (user){
+        for (let i of user){
+          i.toggle = false
+        }
+      }
     this.setState({list:user})
   }
+}
   componentDidUpdate(){
     // Storing to local storage
     const userJSON = JSON.stringify(this.state.list)
@@ -158,7 +162,7 @@ render() {
         <div className = "todo-list">
           <h1><span>To Do List</span></h1>   
           <div className='todo-list-items'>     
-          {(this.state.list != 0)? (this.state.list.map((todo,index)=>
+          {(this.state.list !== 0)? (this.state.list.map((todo,index)=>
               
                 <div key={index} className = "todo-item">
                 <span className='todo-text' onClick={()=> this.onToggle(index)}>{todo.text}</span><span className='time'>{todo.time} </span>

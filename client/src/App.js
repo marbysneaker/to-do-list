@@ -6,17 +6,13 @@ import Home from './Components/Home/Home.js';
 
 class App extends Component {
   render() {
-    const App = () => (
+    return (      
       <div>
+        <div>check if im working</div>
         <Switch>
-          <Route exact path='/' component={Home}/>
+          <Route exact path='/' render={()=> <Home/>}/>
         </Switch>
       </div>
-    )
-    return (
-      <Switch>
-        <App/>
-      </Switch>
     );
   }
 }
