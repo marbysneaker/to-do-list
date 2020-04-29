@@ -96,6 +96,8 @@ h1 span {
   grid-column-gap: 5px;
   margin-top: 5px;
   background-color: #29447a;
+  height: auto;
+  max-height: 10vh;
 }
 .todo-item:nth-child(even){
   background-color: darkgrey;
