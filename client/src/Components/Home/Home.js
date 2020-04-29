@@ -52,11 +52,27 @@ onModalTextInputChange = (event) => {
 }
 onClicked = () => {
   if(this.state.input){
-      this.setState({buttonColor:'red'})
+      
       console.log(this.state.input)
       this.setState(prevState => ({
         list: [...prevState.list, {text: this.state.input,notes:this.state.textInput,done:false,toggle:false,time:dateTime}]
       }))
+      const formData = {
+        text: this.state.input,notes:this.state.textInput,done:false,toggle:false,time:dateTime
+       
+      };
+    
+      fetch('/api/mongodb/todolist/', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(formData),
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Got this back', data);
+    
+          
+        });
       // this.state.list.push({text:this.state.input, done: false})
       console.log(this.state.list)
       this.setState({input:''})
@@ -153,6 +169,8 @@ onEdit = (index) => {
     const userJSON = JSON.stringify(this.state.list)
     
     localStorage.setItem('user', userJSON)
+
+
   }
 
 render() {
@@ -207,3 +225,46 @@ render() {
 }
 }
 export default Home;
+
+
+
+
+// submit = () => {
+//   const formData = {
+//     title: this.state.title,
+//     text: this.state.text,
+//   };
+
+//   fetch('/api/mongodb/blogposts/', {
+//       method: 'POST',
+//       headers: {'Content-Type': 'application/json'},
+//       body: JSON.stringify(formData),
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//       console.log('Got this back', data);
+
+//       // Redirect to blog
+//       this.props.history.push('/blog/');
+//     });
+// }
+
+
+
+
+// fetch('/api/mongodb/markers/', {
+//   method: 'POST',
+//   headers: {'Content-Type': 'application/json'},
+//   body: JSON.stringify(formData),
+// })
+// .then(response => response.json())
+// .then(data => {
+//   // reset form
+//   this.setState({
+//     animal: "", 
+//     submitter: "", 
+//     comment: "",
+//   })
+  
+//   this.onFetch()
+// });
