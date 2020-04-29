@@ -39,8 +39,8 @@ h1 span {
 }
 .input-item{
   background-color: white;
-  width: 30vw;
-  height: 20px;
+  width: 40vw;
+  height: 5vh;
   border-radius: 5px;
   font-size: 20px;
 }
@@ -176,8 +176,8 @@ h1 span {
 .modal {
   position: absolute;
   top: 20%;
-  right: 30%;
-  width: 40vw;
+  right: 25%;
+  width: 50vw;
   height: 30vh;
   z-index: 2;
   background-color: #349de2;
@@ -186,6 +186,7 @@ h1 span {
   border-width: 2px;
   border-style: ridge;
   padding-top: 10vh;
+  margin: 0 auto;
 }
 
 .modal-text{

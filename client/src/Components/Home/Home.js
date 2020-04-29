@@ -164,7 +164,7 @@ render() {
           <div className='todo-list-items'>     
           {(this.state.list !== 0)? (this.state.list.map((todo,index)=>
               
-                <div key={index} className = "todo-item">
+              <div key={index} className = "todo-item">
                 <span className='todo-text' onClick={()=> this.onToggle(index)}>{todo.text}</span><span className='time'>{todo.time} </span>
                 <button onClick={() => this.changeToDone(index)}>{todo.done?<Emoji className='todo-check' label="sheep" symbol="✅"/>:<Emoji className='todo-check' label="sheep" symbol='❌'/>}</button>
                 <button className='delete' onClick={()=> this.deleteItem(index)}>Delete</button>
@@ -179,7 +179,7 @@ render() {
           </div> 
           <div className='input'>
               <input type='text' placeholder='add todo item'className='input-item' value={this.state.input} onChange={this.onInputChange}></input><br></br><br></br>
-              <textarea className='input-notes' placeholder='add notes' name="message" rows="3" cols="30" value={this.state.textInput} onChange={this.onTextInputChange}></textarea>
+              <textarea className='input-notes' placeholder='add notes' name="message" rows="3" cols="20" value={this.state.textInput} onChange={this.onTextInputChange}></textarea>
               <br></br><br></br>
               <input type='submit' className='input-button' onClick={()=> this.onClicked()} ></input>
           </div>
