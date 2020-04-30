@@ -50,6 +50,16 @@ onModalInputChange = (event) => {
 onModalTextInputChange = (event) => {
   this.setState({modalTextInput:event.target.value})
 }
+onFetch = () => {
+  let list = []
+  fetch('/api/mongodb/todolist/')
+  .then(response => response.json())
+  .then(data => {
+    console.log('data!',data)
+    this.setState({list:data})
+  })
+  console.log(list)
+}
 onClicked = () => {
   if(this.state.input){
       
@@ -84,17 +94,13 @@ onClicked = () => {
   
  
 }
-// componentDidMount = () => {
-//   let newData = this.state.list
-//   this.setState({newList:newData})
-//   console.log(this.state.newList)
-//   this.forceUpdate()
-// }
-deleteItem = (index) => {
-  let arr = this.state.list
-  arr.splice(index,1)
-  this.setState({list:arr})
-  console.log(this.state.list.length)
+
+deleteItem = (id) => {
+  // let arr = this.state.list
+  // arr.splice(index,1)
+  // this.setState({list:arr})
+  // console.log(this.state.list.length)
+  console.log(id)
   
 }
 changeToDone = (index) => {
@@ -150,28 +156,31 @@ onEdit = (index) => {
     this.setState({list})
     console.log(this.state.list)
   }
-  componentDidMount(){
-    const userJSON = localStorage.getItem('user')
-    const user = JSON.parse(userJSON)
-    if (user){
-    
-    console.log(user)
-    if (user){
-        for (let i of user){
-          i.toggle = false
-        }
-      }
-    this.setState({list:user})
-  }
+componentDidMount(){
+  this.onFetch()
 }
-  componentDidUpdate(){
-    // Storing to local storage
-    const userJSON = JSON.stringify(this.state.list)
+//   componentDidMount(){
+//     const userJSON = localStorage.getItem('user')
+//     const user = JSON.parse(userJSON)
+//     if (user){
     
-    localStorage.setItem('user', userJSON)
+//     console.log(user)
+//     if (user){
+//         for (let i of user){
+//           i.toggle = false
+//         }
+//       }
+//     this.setState({list:user})
+//   }
+// }
+//   componentDidUpdate(){
+//     // Storing to local storage
+//     const userJSON = JSON.stringify(this.state.list)
+    
+//     localStorage.setItem('user', userJSON)
 
 
-  }
+// }
 
 render() {
   return (
@@ -185,7 +194,7 @@ render() {
               <div key={index} className = "todo-item">
                 <span className='todo-text' onClick={()=> this.onToggle(index)}>{todo.text}</span><span className='time'>{todo.time} </span>
                 <button onClick={() => this.changeToDone(index)}>{todo.done?<Emoji className='todo-check' label="sheep" symbol="✅"/>:<Emoji className='todo-check' label="sheep" symbol='❌'/>}</button>
-                <button className='delete' onClick={()=> this.deleteItem(index)}>Delete</button>
+                <button className='delete' onClick={()=> this.deleteItem(todo._id)}>Delete</button>
                 <button className='toggle-button' onClick={()=> this.showModal(index)}>Edit</button>
                 
                 <div id="toggle" className={(todo.toggle)?("toggle-true"):('toggle-false')}>{(todo.toggle)?this.state.list[index].notes:('')}</div>
