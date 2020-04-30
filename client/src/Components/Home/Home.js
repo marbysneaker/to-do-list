@@ -96,11 +96,14 @@ onClicked = () => {
 }
 
 deleteItem = (id) => {
-  // let arr = this.state.list
-  // arr.splice(index,1)
-  // this.setState({list:arr})
-  // console.log(this.state.list.length)
-  console.log(id)
+  fetch('/api/mongodb/todolist/?_id=' + id, {
+    method: 'DELETE',
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('deleted',id)
+    this.onFetch()
+  })
   
 }
 changeToDone = (index) => {
