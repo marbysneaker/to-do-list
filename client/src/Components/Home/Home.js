@@ -96,14 +96,15 @@ onClicked = () => {
 }
 
 deleteItem = (id) => {
-  fetch('/api/mongodb/todolist/?_id=' + id, {
-    method: 'DELETE',
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log('deleted',id)
-    this.onFetch()
-  })
+  console.log(id)
+  // fetch('/api/mongodb/todolist/?_id=' + id, {
+  //   method: 'DELETE',
+  // })
+  // .then(response => response.json())
+  // .then(data => {
+  //   console.log('deleted',id)
+  //   this.onFetch()
+  // })
   
 }
 changeToDone = (index) => {
@@ -133,14 +134,31 @@ showModal = index => {
   this.setState({modalTextInput:this.state.modalContent.notes})
   console.log(this.state.modalInput)
 }
-onEdit = (index) => {
+onEdit = (index,id) => {
   if(this.state.modalInput){
-      let list = this.state.list
+      let list = this.state.list[index]
       // let time = this.state.list[index].time
-      list.splice(index, 1 , {text:this.state.modalInput,notes:this.state.modalTextInput,done:false,time:dateTime})
-      this.setState({list})
-      console.log(index)
-      this.setState({modal:false})
+      // list.splice(index, 1 , {text:this.state.modalInput,notes:this.state.modalTextInput,done:false,time:dateTime})
+      // this.setState({list})
+      // console.log(index)
+      console.log(list._id)
+      list.text = this.state.modalInput
+      list.notes = this.state.modalTextInput
+      list.done = false
+      list.time = dateTime
+      fetch('/api/mongodb/todolist/?_id=' + list._id, {
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(list),
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Got this back', data);
+
+          // Call method to refresh data
+          this.fetchPosts();
+        });
+        this.setState({modal:false})
   }
 }
   onToggle = (index) => {
@@ -198,7 +216,7 @@ render() {
                 <span className='todo-text' onClick={()=> this.onToggle(index)}>{todo.text}</span><span className='time'>{todo.time} </span>
                 <button onClick={() => this.changeToDone(index)}>{todo.done?<Emoji className='todo-check' label="sheep" symbol="✅"/>:<Emoji className='todo-check' label="sheep" symbol='❌'/>}</button>
                 <button className='delete' onClick={()=> this.deleteItem(todo._id)}>Delete</button>
-                <button className='toggle-button' onClick={()=> this.showModal(index)}>Edit</button>
+                <button className='toggle-button' onClick={()=> this.showModal(index,todo._id)}>Edit</button>
                 
                 <div id="toggle" className={(todo.toggle)?("toggle-true"):('toggle-false')}>{(todo.toggle)?this.state.list[index].notes:('')}</div>
               </div>

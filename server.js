@@ -75,7 +75,33 @@ app.delete('/api/mongodb/:collectionName/', (request, response) => {
     })
 });
 
-
+app.put('/api/mongodb/:collectionName/', (request, response) => {
+    const collectionName = request.params.collectionName;
+    const data = request.body;
+    const query = request.query;
+  
+    // Due to a requirement of MongoDB, whenever we query based on _id field, we
+    // have to do it like this using ObjectId
+    if (query._id) {
+      query._id = ObjectId(query._id);
+    }
+  
+    db.collection(collectionName)
+      .updateOne(query, {$set: data}, (err, results) => {
+        if (err) throw err;
+  
+        // If we modified exactly 1, then success, otherwise failure
+        if (results.result.nModified === 1) {
+          response.json({
+            success: true,
+          });
+        } else {
+          response.json({
+            success: false,
+          });
+        }
+      });
+  });
 
 function logger(req, res, next) {
   console.log(req.method, req.url);
