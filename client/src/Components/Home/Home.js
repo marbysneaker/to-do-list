@@ -134,7 +134,7 @@ showModal = index => {
   this.setState({modalTextInput:this.state.modalContent.notes})
   console.log(this.state.modalInput)
 }
-onEdit = (index,id) => {
+onEdit = (index) => {
   if(this.state.modalInput){
       let list = this.state.list[index]
       // let time = this.state.list[index].time
@@ -142,21 +142,22 @@ onEdit = (index,id) => {
       // this.setState({list})
       // console.log(index)
       console.log(list._id)
-      list.text = this.state.modalInput
-      list.notes = this.state.modalTextInput
-      list.done = false
-      list.time = dateTime
+      const newList ={text : this.state.modalInput
+      ,notes : this.state.modalTextInput
+      ,done : false,time : dateTime}
+      
+      console.log(list.text)
       fetch('/api/mongodb/todolist/?_id=' + list._id, {
           method: 'PUT',
           headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(list),
+          body: JSON.stringify(newList),
         })
         .then(response => response.json())
         .then(data => {
           console.log('Got this back', data);
 
           // Call method to refresh data
-          this.fetchPosts();
+          this.onFetch();
         });
         this.setState({modal:false})
   }
@@ -216,7 +217,7 @@ render() {
                 <span className='todo-text' onClick={()=> this.onToggle(index)}>{todo.text}</span><span className='time'>{todo.time} </span>
                 <button onClick={() => this.changeToDone(index)}>{todo.done?<Emoji className='todo-check' label="sheep" symbol="✅"/>:<Emoji className='todo-check' label="sheep" symbol='❌'/>}</button>
                 <button className='delete' onClick={()=> this.deleteItem(todo._id)}>Delete</button>
-                <button className='toggle-button' onClick={()=> this.showModal(index,todo._id)}>Edit</button>
+                <button className='toggle-button' onClick={()=> this.showModal(index)}>Edit</button>
                 
                 <div id="toggle" className={(todo.toggle)?("toggle-true"):('toggle-false')}>{(todo.toggle)?this.state.list[index].notes:('')}</div>
               </div>
