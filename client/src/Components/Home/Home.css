@@ -61,6 +61,7 @@ h1 span {
   border-style: ridge;
   border-color: #2a2b2e;
   box-shadow:  9px 9px 16px #191d24, -9px -9px 16px #3a404b;
+  z-index: 2;
 }
 .input-button:active{
   background-color:#29447a;
