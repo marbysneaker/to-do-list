@@ -51,14 +51,12 @@ onModalTextInputChange = (event) => {
   this.setState({modalTextInput:event.target.value})
 }
 onFetch = () => {
-  let list = []
   fetch('/api/mongodb/todolist/')
   .then(response => response.json())
   .then(data => {
     console.log('data!',data)
     this.setState({list:data})
   })
-  console.log(list)
 }
 onClicked = () => {
   if(this.state.input){
@@ -96,15 +94,15 @@ onClicked = () => {
 }
 
 deleteItem = (id) => {
-  console.log(id)
-  // fetch('/api/mongodb/todolist/?_id=' + id, {
-  //   method: 'DELETE',
-  // })
-  // .then(response => response.json())
-  // .then(data => {
-  //   console.log('deleted',id)
-  //   this.onFetch()
-  // })
+  
+  fetch('/api/mongodb/todolist/?_id=' + id, {
+    method: 'DELETE',
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('deleted',id)
+    this.onFetch()
+  })
   
 }
 changeToDone = (index) => {
@@ -259,43 +257,3 @@ export default Home;
 
 
 
-
-// submit = () => {
-//   const formData = {
-//     title: this.state.title,
-//     text: this.state.text,
-//   };
-
-//   fetch('/api/mongodb/blogposts/', {
-//       method: 'POST',
-//       headers: {'Content-Type': 'application/json'},
-//       body: JSON.stringify(formData),
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//       console.log('Got this back', data);
-
-//       // Redirect to blog
-//       this.props.history.push('/blog/');
-//     });
-// }
-
-
-
-
-// fetch('/api/mongodb/markers/', {
-//   method: 'POST',
-//   headers: {'Content-Type': 'application/json'},
-//   body: JSON.stringify(formData),
-// })
-// .then(response => response.json())
-// .then(data => {
-//   // reset form
-//   this.setState({
-//     animal: "", 
-//     submitter: "", 
-//     comment: "",
-//   })
-  
-//   this.onFetch()
-// });
