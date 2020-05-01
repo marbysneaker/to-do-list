@@ -35,6 +35,7 @@ state = {
   modalInput:"",
   modalTextInput:'',
   toggle:false,
+  todoItemClicked:false
   }
 onInputChange = (event) => {
 
@@ -113,10 +114,12 @@ changeToDone = (index) => {
   if(done.done === false){
     done.done = true
     console.log(done.done)
+    done.todoItemClicked = 'todo-item-true'
   }
   else{
     done.done = false
     console.log(done.done)
+    done.todoItemClicked = 'todo-item-false'
   }
   
   this.setState({list})
@@ -166,10 +169,12 @@ onEdit = (index) => {
     let toggle = list[index]
     if(toggle.toggle === false){
       toggle.toggle = true
+      toggle.todoItemClicked = 'todo-item-true'
       
     }
     else{
       toggle.toggle = false
+      toggle.todoItemClicked = 'todo-item-false'
       
     }
     console.log(toggle.toggle)
@@ -211,7 +216,7 @@ render() {
           <div className='todo-list-items'>     
           {(this.state.list !== 0)? (this.state.list.map((todo,index)=>
               
-              <div key={index} className = "todo-item">
+              <div key={index} className = "todo-item" id={(todo.toggle)?("toggle-true"):('toggle-false')}>
                 <span className='todo-text' onClick={()=> this.onToggle(index)}>{todo.text}</span><span className='time'>{todo.time} </span>
                 <button onClick={() => this.changeToDone(index)}>{todo.done?<Emoji className='todo-check' label="sheep" symbol="✅"/>:<Emoji className='todo-check' label="sheep" symbol='❌'/>}</button>
                 <button className='delete' onClick={()=> this.deleteItem(todo._id)}>Delete</button>
