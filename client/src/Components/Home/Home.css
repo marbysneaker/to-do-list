@@ -61,7 +61,7 @@ h1 span {
   border-style: ridge;
   border-color: #2a2b2e;
   box-shadow:  9px 9px 16px #191d24, -9px -9px 16px #3a404b;
-  z-index: 10;
+  z-index: 10 !important;
 }
 .input-button:active{
   background-color:#29447a;
@@ -217,4 +217,9 @@ h1 span {
   border-color: #349de2;
   box-shadow:  9px 9px 16px #076fb4, -9px -9px 16px #5cb7f3;
 
+}
+@media screen and (max-height: 600px){
+  .todo-list-items, .todo-item{
+    overflow: hidden;
+  }
 }
