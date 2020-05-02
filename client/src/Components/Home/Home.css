@@ -115,6 +115,7 @@ h1 span {
   padding-left: 5px;
   text-align: left;
   word-break: break-all;
+  align-content: center;
 }
 .time{
   grid-row: 1;
@@ -131,7 +132,7 @@ h1 span {
   grid-row: 1;
   grid-column: 4;
   color: white;
-  background-color: #282c34;
+  background-color: #010150;
   outline: none;
   width: 60px;
   height: 30px;
@@ -251,6 +252,8 @@ h1 span {
     margin-left: auto;
     margin-right: auto;
     word-wrap: break-word;
+    overflow: scroll;
+    
 
   }
   .todo-list-items {
@@ -258,5 +261,19 @@ h1 span {
     width: 98vw;
     margin-top: 30px;
     overflow: scroll;
+  }
+  .modal {
+    width: 80vw;
+    right: 10vw;
+    height: 40vh;
+  }
+  .modal-text {
+    width: 50vw;
+  }
+  .modal-notes{
+    width: 60vw ;
+    height: 20vh;
+
+
   }
 }
