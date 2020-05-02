@@ -130,6 +130,18 @@ h1 span {
 .delete {
   grid-row: 1;
   grid-column: 4;
+  color: white;
+  background-color: #282c34;
+  outline: none;
+  width: 60px;
+  height: 30px;
+  border-radius: 9999em 9999em 9999em 9999em;
+  border-style: ridge;
+  /* border-color: #2a2b2e; */
+  /* box-shadow:  9px 9px 16px #191d24, -9px -9px 16px #3a404b; */
+  margin-left: auto;
+  margin-right: auto;
+  margin: auto auto;
 }
 .toggle-button {
   grid-row: 1;
@@ -232,4 +244,19 @@ h1 span {
 }
 #toggle-true{
   min-height: 20vh;
+}
+@media screen and (max-width: 600px){
+  .todo-item {
+    width:90vw;
+    margin-left: auto;
+    margin-right: auto;
+    word-wrap: break-word;
+
+  }
+  .todo-list-items {
+    padding: 10px 0;
+    width: 98vw;
+    margin-top: 30px;
+    overflow: scroll;
+  }
 }
