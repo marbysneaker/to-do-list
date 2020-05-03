@@ -41,7 +41,8 @@ state = {
   toggle:false,
   todoItemClicked:false,
   todo:true,
-  active:'todo'
+  active:'todo',
+  todoListItems: 'todo-list-items'
   }
 
 onDragStart = (event) => {
@@ -117,7 +118,7 @@ onClicked = () => {
       console.log('grocery')
       console.log(this.state.input)
       this.setState(prevState => ({
-        list: [...prevState.grocery, {text: this.state.input,notes:this.state.textInput,done:false,toggle:false,time:dateTime}]
+        grocery: [...prevState.grocery, {text: this.state.input,notes:this.state.textInput,done:false,toggle:false,time:dateTime}]
       }))
       const formData = {
         text: this.state.input,notes:this.state.textInput,done:false,toggle:false,time:dateTime
@@ -139,40 +140,72 @@ onClicked = () => {
       console.log(this.state.grocery)
       this.setState({input:''})
       this.setState({textInput:''})
-
     }
   
 }
 
 deleteItem = (id) => {
-  
-  fetch('/api/mongodb/todolist/?_id=' + id, {
-    method: 'DELETE',
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log('deleted',id)
-    this.onFetch()
-  })
+  if(this.state.todo){
+    fetch('/api/mongodb/todolist/?_id=' + id, {
+      method: 'DELETE',
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('deleted',id)
+      this.onFetch()
+    })
+  }
+  if(!this.state.todo){
+    fetch('/api/mongodb/grocery/?_id=' + id, {
+      method: 'DELETE',
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('deleted',id)
+      this.onFetch()
+    })
+  }
   
 }
 changeToDone = (index) => {
-  console.log(this.state.list[index].done)
-  let list = this.state.list
-  let done = this.state.list[index]
-  
-  if(done.done === false){
-    done.done = true
-    console.log(done.done)
-    done.todoItemClicked = 'todo-item-true'
+  if(this.state.todo){
+    
+      console.log(this.state.list[index].done)
+      let list = this.state.list
+      let done = this.state.list[index]
+      
+      if(done.done === false){
+        done.done = true
+        console.log(done.done)
+        done.todoItemClicked = 'todo-item-true'
+      }
+      else{
+        done.done = false
+        console.log(done.done)
+        done.todoItemClicked = 'todo-item-false'
+      }
+      
+      this.setState({list})
+    }
+  if(!this.state.todo){
+      console.log(this.state.grocery[index].done)
+      let list = this.state.grocery
+      let done = this.state.grocery[index]
+      
+      if(done.done === false){
+        done.done = true
+        console.log(done.done)
+        done.todoItemClicked = 'todo-item-true'
+      }
+      else{
+        done.done = false
+        console.log(done.done)
+        done.todoItemClicked = 'todo-item-false'
+      }
+      
+      this.setState({grocery:list})
+
   }
-  else{
-    done.done = false
-    console.log(done.done)
-    done.todoItemClicked = 'todo-item-false'
-  }
-  
-  this.setState({list})
 }
 showModal = index => {
   if(this.state.todo){
@@ -296,10 +329,12 @@ todo = (todo) => {
   if (todo === 'todo'){
     this.setState({todo:true})
     this.setState({active:todo})
+    this.setState({todoListItems:'todo-list-items'})
   }
   if (todo === 'grocery'){
     this.setState({todo:false})
     this.setState({active:todo})
+    this.setState({todoListItems: 'todo-list-items grocery-true'})
   }
 }
 
@@ -313,7 +348,7 @@ render() {
         onDrop={(e)=> this.onDrop(e)}
         >
           <h1><span>To Do List</span></h1>   
-          <div className='todo-list-items'>     
+          <div className={this.state.todoListItems}>     
           {(this.state.list !== 0 && this.state.todo)? (this.state.list.map((todo,index)=>
               
               <div key={index} className = "todo-item" id={(todo.toggle)?("toggle-true"):('toggle-false')}>
@@ -329,7 +364,7 @@ render() {
               )):(
                 (this.state.grocery.map((todo,index)=>
 
-                <div key={index} className = "todo-item grocery-true" id={(todo.toggle)?("toggle-true"):('toggle-false')}>
+                <div key={index} className = "todo-item grocery-2" id={(todo.toggle)?("toggle-true"):('toggle-false')}>
                 <span className='todo-text' onClick={()=> this.onToggle(index)}>{todo.text}</span><span className='time'>{todo.time} </span>
                 <button onClick={() => this.changeToDone(index)}>{todo.done?<Emoji className='todo-check' label="sheep" symbol="✅"/>:<Emoji className='todo-check' label="sheep" symbol='❌'/>}</button>
                 <button className='delete' onClick={()=> this.deleteItem(todo._id)}>Delete</button>

@@ -275,6 +275,12 @@ h1 span {
 #active{
   color: rgb(219, 54, 12);
 }
+.grocery-true {
+  background-color: palevioletred;
+}
+.grocery-2 {
+  background-color: rosybrown;
+}
 @media screen and (max-height: 600px){
   .todo-list-items, .todo-item{
     overflow: hidden;
@@ -315,7 +321,16 @@ h1 span {
   .modal-notes{
     width: 60vw ;
     height: 20vh;
-
+  }
+  .todo {
+    top: 43vh;
+    width: 20vw;
+    left: 2vw;
+  }
+  .grocery {
+    top: 43vh;
+    width: 20vw;
+    right: 2vw;
 
   }
 }
