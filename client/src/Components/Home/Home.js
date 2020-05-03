@@ -28,7 +28,9 @@ state = {
   list: [{text: "Buy eggs", notes:'empty',done: false,toggle:false},
   {text: "Buy milk", notes:'empty',done: true,toggle:false},
   ],
+  grocery:[],
   input: '',
+
   textInput:'',
   newList: [],
   modal:false,
@@ -37,7 +39,9 @@ state = {
   modalInput:"",
   modalTextInput:'',
   toggle:false,
-  todoItemClicked:false
+  todoItemClicked:false,
+  todo:true,
+  active:'todo'
   }
 
 onDragStart = (event) => {
@@ -73,9 +77,15 @@ onFetch = () => {
     console.log('data!',data)
     this.setState({list:data})
   })
+  fetch('/api/mongodb/grocery/')
+  .then(response => response.json())
+  .then(data => {
+    console.log('data!',data)
+    this.setState({grocery:data})
+  })
 }
 onClicked = () => {
-  if(this.state.input){
+  if(this.state.input && this.state.todo){
       
       console.log(this.state.input)
       this.setState(prevState => ({
@@ -101,12 +111,37 @@ onClicked = () => {
       console.log(this.state.list)
       this.setState({input:''})
       this.setState({textInput:''})
-  }
-  console.log(this.state.list)
-  sleep(5000)
-  console.log(this.state.buttonColor)
+
+      }
+    if(this.state.input && !this.state.todo){
+      console.log('grocery')
+      console.log(this.state.input)
+      this.setState(prevState => ({
+        list: [...prevState.grocery, {text: this.state.input,notes:this.state.textInput,done:false,toggle:false,time:dateTime}]
+      }))
+      const formData = {
+        text: this.state.input,notes:this.state.textInput,done:false,toggle:false,time:dateTime
+       
+      };
+    
+      fetch('/api/mongodb/grocery/', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(formData),
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Got this back', data);
+    
+          
+        });
+      // this.state.list.push({text:this.state.input, done: false})
+      console.log(this.state.grocery)
+      this.setState({input:''})
+      this.setState({textInput:''})
+
+    }
   
- 
 }
 
 deleteItem = (id) => {
@@ -140,18 +175,31 @@ changeToDone = (index) => {
   this.setState({list})
 }
 showModal = index => {
-  console.log(index)
-  this.setState({modal:true})
-  let modalList = (this.state.list[index])
-  this.state.modalContent = modalList
-  this.setState({modalIndex:index})
-  this.setState({modalContent : modalList})
-  this.setState({modalInput : this.state.modalContent.text})
-  this.setState({modalTextInput:this.state.modalContent.notes})
-  console.log(this.state.modalInput)
+  if(this.state.todo){
+    console.log(index)
+    this.setState({modal:true})
+    let modalList = (this.state.list[index])
+    this.state.modalContent = modalList
+    this.setState({modalIndex:index})
+    this.setState({modalContent : modalList})
+    this.setState({modalInput : this.state.modalContent.text})
+    this.setState({modalTextInput:this.state.modalContent.notes})
+    console.log(this.state.modalInput)
+  }
+  if(!this.state.todo){
+    console.log(index)
+    this.setState({modal:true})
+    let modalList = (this.state.grocery[index])
+    this.state.modalContent = modalList
+    this.setState({modalIndex:index})
+    this.setState({modalContent : modalList})
+    this.setState({modalInput : this.state.modalContent.text})
+    this.setState({modalTextInput:this.state.modalContent.notes})
+    console.log(this.state.modalInput)
+  }
 }
 onEdit = (index) => {
-  if(this.state.modalInput){
+  if(this.state.modalInput && this.state.todo){
       let list = this.state.list[index]
       // let time = this.state.list[index].time
       // list.splice(index, 1 , {text:this.state.modalInput,notes:this.state.modalTextInput,done:false,time:dateTime})
@@ -164,6 +212,32 @@ onEdit = (index) => {
       
       console.log(list.text)
       fetch('/api/mongodb/todolist/?_id=' + list._id, {
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(newList),
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Got this back', data);
+
+          // Call method to refresh data
+          this.onFetch();
+        });
+        this.setState({modal:false})
+  }
+  if(this.state.modalInput && !this.state.todo){
+      let list = this.state.grocery[index]
+      // let time = this.state.list[index].time
+      // list.splice(index, 1 , {text:this.state.modalInput,notes:this.state.modalTextInput,done:false,time:dateTime})
+      // this.setState({list})
+      // console.log(index)
+      console.log(list._id)
+      const newList ={text : this.state.modalInput
+      ,notes : this.state.modalTextInput
+      ,done : false,time : dateTime}
+      
+      console.log(list.text)
+      fetch('/api/mongodb/grocery/?_id=' + list._id, {
           method: 'PUT',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(newList),
@@ -199,8 +273,15 @@ onEdit = (index) => {
 componentDidMount(){
   this.onFetch()
 }
-drag = (ev) => {
-  ev.dataTransfer.setData("text", ev.target.id);
+todo = (todo) => {
+  if (todo === 'todo'){
+    this.setState({todo:true})
+    this.setState({active:todo})
+  }
+  if (todo === 'grocery'){
+    this.setState({todo:false})
+    this.setState({active:todo})
+  }
 }
 //   componentDidMount(){
 //     const userJSON = localStorage.getItem('user')
@@ -235,7 +316,7 @@ render() {
         >
           <h1><span>To Do List</span></h1>   
           <div className='todo-list-items'>     
-          {(this.state.list !== 0)? (this.state.list.map((todo,index)=>
+          {(this.state.list !== 0 && this.state.todo)? (this.state.list.map((todo,index)=>
               
               <div key={index} className = "todo-item" id={(todo.toggle)?("toggle-true"):('toggle-false')}>
                 <span className='todo-text' onClick={()=> this.onToggle(index)}>{todo.text}</span><span className='time'>{todo.time} </span>
@@ -247,7 +328,20 @@ render() {
               </div>
               
               
-              )):(<div>Nothing to do</div>)
+              )):(
+                (this.state.grocery.map((todo,index)=>
+
+                <div key={index} className = "todo-item grocery-true" id={(todo.toggle)?("toggle-true"):('toggle-false')}>
+                <span className='todo-text' onClick={()=> this.onToggle(index)}>{todo.text}</span><span className='time'>{todo.time} </span>
+                <button onClick={() => this.changeToDone(index)}>{todo.done?<Emoji className='todo-check' label="sheep" symbol="✅"/>:<Emoji className='todo-check' label="sheep" symbol='❌'/>}</button>
+                <button className='delete' onClick={()=> this.deleteItem(todo._id)}>Delete</button>
+                <button className='toggle-button' onClick={()=> this.showModal(index)}>Edit</button>
+                
+                <div id="toggle" className={(todo.toggle)?("toggle-true"):('toggle-false')}>{(todo.toggle)?this.state.grocer[index].notes:('')}</div>
+              </div>
+                
+                ))
+                )
               }
           </div> 
           <div className='input'>
@@ -261,7 +355,7 @@ render() {
           {(this.state.modal)?(
            <div className='modal' draggable='true'
            onDragStart={(event)=>this.onDragStart(event)}>
-           >
+           
               <input type='text' className='modal-text' value={this.state.modalInput} onChange={this.onModalInputChange}></input>
 
               <br></br>
@@ -275,6 +369,8 @@ render() {
            </div>
           ):(<div></div>)
           }
+          <div id={(this.state.active === 'todo')? "active":"none"} className="todo" onClick={()=>this.todo('todo')}>Todo List</div>
+          <div id={(this.state.active === 'grocery')? "active":"none"} className="grocery"  onClick={()=>this.todo('grocery')}> Grocery</div>
         </div>
       </header>
     </div>
