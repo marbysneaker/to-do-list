@@ -11,7 +11,7 @@ font-family: 'Bungee Inline', cursive;
   height: 100 vh;
   width: 100vw;
   display: grid;
-  grid-template-rows: 15vh 30vh 65vh;
+  grid-template-rows: 15vh 30vh 60vh;
   text-align: center;
   box-sizing: border-box;
   background-color: #282c34;
