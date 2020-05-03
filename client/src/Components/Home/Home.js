@@ -19,7 +19,9 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+
 class Home extends Component{
+  
 
 
 state = {
@@ -37,6 +39,19 @@ state = {
   toggle:false,
   todoItemClicked:false
   }
+
+onDragStart = (event) => {
+    event.dataTransfer.setData('text',event.target.id)
+    
+}
+
+onDrop = (event) => {
+  event.dataTransfer.setData("text", event.target.id);
+  event.preventDefault();
+  
+   
+}
+
 onInputChange = (event) => {
 
   this.setState({input:event.target.value})
@@ -184,6 +199,9 @@ onEdit = (index) => {
 componentDidMount(){
   this.onFetch()
 }
+drag = (ev) => {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
 //   componentDidMount(){
 //     const userJSON = localStorage.getItem('user')
 //     const user = JSON.parse(userJSON)
@@ -208,10 +226,13 @@ componentDidMount(){
 // }
 
 render() {
+
   return (
     <div className="App">
       <header className="App-header">
-        <div className = "todo-list">
+        <div  className = "todo-list"
+        onDrop={(e)=> this.onDrop(e)}
+        >
           <h1><span>To Do List</span></h1>   
           <div className='todo-list-items'>     
           {(this.state.list !== 0)? (this.state.list.map((todo,index)=>
@@ -238,7 +259,9 @@ render() {
           <br></br>
           <br></br>
           {(this.state.modal)?(
-           <div className='modal'>
+           <div className='modal' draggable='true'
+           onDragStart={(event)=>this.onDragStart(event)}>
+           >
               <input type='text' className='modal-text' value={this.state.modalInput} onChange={this.onModalInputChange}></input>
 
               <br></br>
@@ -259,6 +282,4 @@ render() {
 }
 }
 export default Home;
-
-
 
