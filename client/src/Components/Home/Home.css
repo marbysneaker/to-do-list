@@ -313,6 +313,12 @@ h1 span {
     margin-top: 30px;
     overflow: scroll;
   }
+  .input-item{
+    width: 60vw;
+  }
+  .input-notes{
+    width: 60vw;
+  }
   .modal {
     width: 80vw;
     right: 10vw;
