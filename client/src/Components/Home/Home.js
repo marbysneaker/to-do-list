@@ -253,22 +253,41 @@ onEdit = (index) => {
   }
 }
   onToggle = (index) => {
-    console.log(this.state.list[index])
-    let list = this.state.list
-    let toggle = list[index]
-    if(toggle.toggle === false){
-      toggle.toggle = true
-      toggle.todoItemClicked = 'todo-item-true'
-      
+    if(this.state.todo){
+      console.log(this.state.list[index])
+      let list = this.state.list
+      let toggle = list[index]
+      if(toggle.toggle === false){
+        toggle.toggle = true
+        toggle.todoItemClicked = 'todo-item-true'
+        
+      }
+      else{
+        toggle.toggle = false
+        toggle.todoItemClicked = 'todo-item-false'
+        
+      }
+      console.log(toggle.toggle)
+      this.setState({list})
+      console.log(this.state.list)
     }
-    else{
-      toggle.toggle = false
-      toggle.todoItemClicked = 'todo-item-false'
-      
+    if(!this.state.todo){
+      let list = this.state.grocery
+      let toggle = list[index]
+      if(toggle.toggle === false){
+        toggle.toggle = true
+        toggle.todoItemClicked = 'todo-item-true'
+        
+      }
+      else{
+        toggle.toggle = false
+        toggle.todoItemClicked = 'todo-item-false'
+        
+      }
+      console.log(toggle.toggle)
+      this.setState({grocery:list})
+
     }
-    console.log(toggle.toggle)
-    this.setState({list})
-    console.log(this.state.list)
   }
 componentDidMount(){
   this.onFetch()
@@ -283,28 +302,7 @@ todo = (todo) => {
     this.setState({active:todo})
   }
 }
-//   componentDidMount(){
-//     const userJSON = localStorage.getItem('user')
-//     const user = JSON.parse(userJSON)
-//     if (user){
-    
-//     console.log(user)
-//     if (user){
-//         for (let i of user){
-//           i.toggle = false
-//         }
-//       }
-//     this.setState({list:user})
-//   }
-// }
-//   componentDidUpdate(){
-//     // Storing to local storage
-//     const userJSON = JSON.stringify(this.state.list)
-    
-//     localStorage.setItem('user', userJSON)
 
-
-// }
 
 render() {
 
@@ -337,7 +335,7 @@ render() {
                 <button className='delete' onClick={()=> this.deleteItem(todo._id)}>Delete</button>
                 <button className='toggle-button' onClick={()=> this.showModal(index)}>Edit</button>
                 
-                <div id="toggle" className={(todo.toggle)?("toggle-true"):('toggle-false')}>{(todo.toggle)?this.state.grocer[index].notes:('')}</div>
+                <div id="toggle" className={(todo.toggle)?("toggle-true"):('toggle-false')}>{(todo.toggle)?this.state.grocery[index].notes:('')}</div>
               </div>
                 
                 ))
@@ -379,3 +377,25 @@ render() {
 }
 export default Home;
 
+//   componentDidMount(){
+//     const userJSON = localStorage.getItem('user')
+//     const user = JSON.parse(userJSON)
+//     if (user){
+    
+//     console.log(user)
+//     if (user){
+//         for (let i of user){
+//           i.toggle = false
+//         }
+//       }
+//     this.setState({list:user})
+//   }
+// }
+//   componentDidUpdate(){
+//     // Storing to local storage
+//     const userJSON = JSON.stringify(this.state.list)
+    
+//     localStorage.setItem('user', userJSON)
+
+
+// }
