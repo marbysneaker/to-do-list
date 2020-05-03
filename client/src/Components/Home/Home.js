@@ -327,11 +327,13 @@ componentDidMount(){
 }
 todo = (todo) => {
   if (todo === 'todo'){
+    console.log('todo')
     this.setState({todo:true})
     this.setState({active:todo})
     this.setState({todoListItems:'todo-list-items'})
   }
   if (todo === 'grocery'){
+    console.log('todo')
     this.setState({todo:false})
     this.setState({active:todo})
     this.setState({todoListItems: 'todo-list-items grocery-true'})

@@ -275,6 +275,9 @@ h1 span {
   padding: 10px 0;
 
 }
+.grocery:hover{
+  cursor: pointer;
+}
 #active{
   color: rgb(219, 54, 12);
 }
