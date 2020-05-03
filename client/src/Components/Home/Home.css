@@ -313,6 +313,9 @@ h1 span {
     margin-top: 30px;
     overflow: scroll;
   }
+  .todo-check {
+    padding: 10px;
+  }
   .input-item{
     width: 60vw;
   }
