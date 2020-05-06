@@ -45,6 +45,10 @@ state = {
   todoListItems: 'todo-list-items',
   user :[],
   userIs:false,
+  registerUn:'',
+  registerPw:'',
+  userN:'',
+  userPw:''
   }
 
 
@@ -56,16 +60,8 @@ userFetch = () => {
     this.setState({user:user })
   }
 }
-onDragStart = (event) => {
-    event.dataTransfer.setData('text',event.target.id)
-    
-}
-
-onDrop = (event) => {
-  event.dataTransfer.setData("text", event.target.id);
-  event.preventDefault();
-  
-   
+onRegisterUn = (event) => {
+  this.setState({registerUn:event.target.value})
 }
 
 onInputChange = (event) => {
@@ -358,7 +354,7 @@ render() {
     <div className="App">
       <header className="App-header">
         <div  className = "todo-list"
-        onDrop={(e)=> this.onDrop(e)}
+        
         >
           <h1><span>To Do List</span></h1>   
           <div className={this.state.todoListItems}>     
@@ -400,7 +396,7 @@ render() {
           <br></br>
           {(this.state.modal)?(
            <div className='modal' draggable='true'
-           onDragStart={(event)=>this.onDragStart(event)}>
+           >
            
               <input type='text' className='modal-text' value={this.state.modalInput} onChange={this.onModalInputChange}></input>
 
@@ -418,6 +414,28 @@ render() {
           <div id={(this.state.active === 'todo')? "active":"none"} className="todo" onClick={()=>this.todo('todo')}>Todo List</div>
           <div id={(this.state.active === 'grocery')? "active":"none"} className="grocery"  onClick={()=>this.todo('grocery')}> Grocery</div>
           <div className={(this.state.userIs)?('user-true'):('user-false')} id='user'> user
+              <div className='register'>
+                <span>Username</span>
+                <br></br>
+                <input className='register-un'></input>
+                <br></br>
+                <span>Password</span>
+                <br></br>
+                <input className='register-pw'></input>
+                <br></br>
+                <button className='register-btn'>Register</button>
+              </div>
+              <div className='signin'>
+                <span>Username</span>
+                <br></br>
+                <input className='signin-un' value={this.state.registerUn} onChange={this.onRegisterUn}></input>
+                <br></br>
+                <span>Password</span>
+                <br></br>
+                <input className='signin-pw'></input>
+                <br></br>
+                <button className='signin-btn'>Sign In</button>
+              </div>
           
           </div>
         </div>
