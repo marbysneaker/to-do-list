@@ -42,9 +42,20 @@ state = {
   todoItemClicked:false,
   todo:true,
   active:'todo',
-  todoListItems: 'todo-list-items'
+  todoListItems: 'todo-list-items',
+  user :[],
+  userIs:false,
   }
 
+
+
+userFetch = () => {
+  const userJSON = localStorage.getItem('user')
+  const user = JSON.parse(userJSON)
+  if (user){
+    this.setState({user:user })
+  }
+}
 onDragStart = (event) => {
     event.dataTransfer.setData('text',event.target.id)
     
@@ -406,7 +417,11 @@ render() {
           }
           <div id={(this.state.active === 'todo')? "active":"none"} className="todo" onClick={()=>this.todo('todo')}>Todo List</div>
           <div id={(this.state.active === 'grocery')? "active":"none"} className="grocery"  onClick={()=>this.todo('grocery')}> Grocery</div>
+          <div className={(this.state.userIs)?('user-true'):('user-false')} id='user'> user
+          
+          </div>
         </div>
+
       </header>
     </div>
   );

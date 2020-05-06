@@ -287,6 +287,11 @@ h1 span {
 .grocery-2 {
   background-color: rosybrown;
 }
+#user {
+  background-color: white;
+  height: 30vh;
+  width: 100%;
+}
 @media screen and (max-height: 600px){
   .todo-list-items, .todo-item{
     overflow: hidden;
