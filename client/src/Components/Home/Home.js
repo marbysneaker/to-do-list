@@ -70,6 +70,12 @@ onRegisterUn = (event) => {
 onRegisterPw = (event) => {
   this.setState({registerPw:event.target.value})
 }
+onLoginUn = (event) => {
+  this.setState({userN:event.target.value})
+}
+onLoginPw = (event) => {
+  this.setState({userPw:event.target.value})
+}
 
 onInputChange = (event) => {
 
@@ -502,11 +508,11 @@ render() {
               <div className='signin'>
                 <span>Username</span>
                 <br></br>
-                <input className='signin-un' ></input>
+                <input className='signin-un' value={this.state.userN} onChange={this.onLoginUn} ></input>
                 <br></br>
                 <span>Password</span>
                 <br></br>
-                <input className='signin-pw' ></input>
+                <input className='signin-pw' value={this.state.userPw} onChange={this.onLoginPw}></input>
                 <br></br>
                 <button className='signin-btn' type='submit' className='register-btn' onClick={() => this.onSignIn()}>Sign In</button>
               </div>
