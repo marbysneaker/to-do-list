@@ -137,14 +137,28 @@ onRegister = () => {
 }
 onSignIn = () => {
   console.log('signIN')
+  console.log(this.state.userN)
+  let un = this.state.userN
+  let pw = this.state.userPw
   console.log(this.state.allUsers)
   let userLogin ={}
   const user = this.state.allUsers.map((user, index)=>{
       return userLogin[user.user] = user.password
     
   })
-  
   console.log(userLogin)
+ if (Object.keys(userLogin).includes(un)){
+   if (userLogin[un] === pw){
+     console.log('log In')
+   }
+   else{
+     console.log('incorrect password')
+   }
+
+ }
+ else{
+   console.log('username does not exist')
+ }
 
 }
 onClicked = () => {
