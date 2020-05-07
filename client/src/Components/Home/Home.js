@@ -86,12 +86,15 @@ onModalTextInputChange = (event) => {
   this.setState({modalTextInput:event.target.value})
 }
 fetchUsers = () => {
+  let testusers= []
   fetch('/api/mongodb/users/')
   .then(response => response.json())
   .then(data => {
     console.log('data!',data)
     this.setState({allUsers:data})
+    testusers.push(data)
   })
+  this.setState({allUsers:testusers})
   console.log(this.state.allUsers)
 
 }
@@ -111,9 +114,10 @@ onFetch = () => {
 }
 onRegister = () => {
   console.log('clicked')
+
   let user = this.state.registerUn
   let pw = this.state.registerPw
-  let formData ={user:user,password:pw}
+  let formData = {user:user,password:pw}
   console.log(formData)
   
   fetch('/api/mongodb/users/', {
@@ -133,7 +137,15 @@ onRegister = () => {
 }
 onSignIn = () => {
   console.log('signIN')
+  console.log(this.state.allUsers)
+  let userLogin ={}
+  const user = this.state.allUsers.map((user, index)=>{
+      return userLogin[user.user] = user.password
+    
+  })
   
+  console.log(userLogin)
+
 }
 onClicked = () => {
   if(this.state.input && this.state.todo){
@@ -375,6 +387,7 @@ onEdit = (index) => {
 componentDidMount(){
   
   this.fetchUsers()
+  console.log(this.state.allUsers)
   this.onFetch()
 
 }
