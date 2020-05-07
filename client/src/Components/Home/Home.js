@@ -48,20 +48,45 @@ state = {
   registerUn:'',
   registerPw:'',
   userN:'',
-  userPw:''
+  userPw:'',
+  registered:[]
   }
 
 
 
-userFetch = () => {
-  const userJSON = localStorage.getItem('user')
-  const user = JSON.parse(userJSON)
-  if (user){
-    this.setState({user:user })
-  }
+// userFetch = () => {
+//   const userJSON = localStorage.getItem('user')
+//   const user = JSON.parse(userJSON)
+//   if (user){
+//     this.setState({user:user })
+//   }
+// }
+onRegister = () => {
+  console.log('clicked')
+  let user = this.state.registerUn
+  let pw = this.state.registerPw
+  this.setState({registered:{user:pw}})
+  let formData = {user:pw}
+  fetch('/api/mongodb/users/', {
+    console.log('posting'),
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(formData),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Got this back', data);
+
+    
+  });
+
+
 }
 onRegisterUn = (event) => {
   this.setState({registerUn:event.target.value})
+}
+onRegisterPw = (event) => {
+  this.setState({registerPw:event.target.value})
 }
 
 onInputChange = (event) => {
@@ -417,22 +442,22 @@ render() {
               <div className='register'>
                 <span>Username</span>
                 <br></br>
-                <input className='register-un'></input>
+                <input className='register-un' value={this.state.registerUn} onChange={this.onRegisterUn}></input>
                 <br></br>
                 <span>Password</span>
                 <br></br>
-                <input className='register-pw'></input>
+                <input className='register-pw' value={this.state.registerPw} onChange={this.onRegisterPw}></input>
                 <br></br>
-                <button className='register-btn'>Register</button>
+                <button type='submit' className='register-btn' onClick={() => this.onRegister()}>Register</button>
               </div>
               <div className='signin'>
                 <span>Username</span>
                 <br></br>
-                <input className='signin-un' value={this.state.registerUn} onChange={this.onRegisterUn}></input>
+                <input className='signin-un' ></input>
                 <br></br>
                 <span>Password</span>
                 <br></br>
-                <input className='signin-pw'></input>
+                <input className='signin-pw' ></input>
                 <br></br>
                 <button className='signin-btn'>Sign In</button>
               </div>
