@@ -43,7 +43,7 @@ state = {
   todo:true,
   active:'todo',
   todoListItems: 'todo-list-items',
-  user :[],
+  user:[],
   userIs:false,
   registerUn:'',
   registerPw:'',
@@ -51,7 +51,8 @@ state = {
   userPw:'',
   registered:[],
   testRegister:[],
-  allUsers:[]
+  allUsers:[],
+  loggedIn:false,
   }
 
 
@@ -105,13 +106,13 @@ fetchUsers = () => {
 
 }
 onFetch = () => {
-  fetch('/api/mongodb/todolist/')
+  fetch(`/api/mongodb/${this.state.user.user}todolist/`)
   .then(response => response.json())
   .then(data => {
     console.log('data!',data)
     this.setState({list:data})
   })
-  fetch('/api/mongodb/grocery/')
+  fetch(`/api/mongodb/${this.state.user.password}grocery/`)
   .then(response => response.json())
   .then(data => {
     console.log('data!',data)
@@ -153,9 +154,14 @@ onSignIn = () => {
     
   })
   console.log(userLogin)
+  
  if (Object.keys(userLogin).includes(un)){
    if (userLogin[un] === pw){
      console.log('log In')
+     user[un] = pw
+     this.setState({user:{user:un,password:pw}})
+     this.setState({loggedIn:true})
+     
    }
    else{
      console.log('incorrect password')
@@ -165,6 +171,7 @@ onSignIn = () => {
  else{
    console.log('username does not exist')
  }
+ console.log(this.state.user)
 
 }
 onClicked = () => {
@@ -179,7 +186,7 @@ onClicked = () => {
        
       };
     
-      fetch('/api/mongodb/todolist/', {
+      fetch(`/api/mongodb/${this.state.user.user}todolist/`, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(formData),
@@ -228,7 +235,7 @@ onClicked = () => {
 
 deleteItem = (id) => {
   if(this.state.todo){
-    fetch('/api/mongodb/todolist/?_id=' + id, {
+    fetch(`/api/mongodb/${this.state.user.user}todolist?_id=/`+ id, {
       method: 'DELETE',
     })
     .then(response => response.json())
@@ -326,7 +333,7 @@ onEdit = (index) => {
       ,done : false,time : dateTime}
       
       console.log(list.text)
-      fetch('/api/mongodb/todolist/?_id=' + list._id, {
+      fetch(`/api/mongodb/${this.state.user.user}todolist?_id=/` + list._id, {
           method: 'PUT',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(newList),
@@ -408,8 +415,9 @@ componentDidMount(){
   
   this.fetchUsers()
   console.log(this.state.allUsers)
-  this.onFetch()
-
+  if (this.state.loggedIn){
+    this.onFetch()
+  }
 }
 
 todo = (todo) => {
