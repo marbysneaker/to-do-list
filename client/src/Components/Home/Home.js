@@ -106,6 +106,8 @@ fetchUsers = () => {
 
 }
 onFetch = () => {
+  let todoFetch = `/api/mongodb/${this.state.user.user}todolist/`
+  console.log(todoFetch)
   fetch(`/api/mongodb/${this.state.user.user}todolist/`)
   .then(response => response.json())
   .then(data => {
@@ -161,6 +163,7 @@ onSignIn = () => {
      user[un] = pw
      this.setState({user:{user:un,password:pw}})
      this.setState({loggedIn:true})
+     this.onFetch()
      
    }
    else{
