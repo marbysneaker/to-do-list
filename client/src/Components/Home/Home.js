@@ -43,7 +43,7 @@ state = {
   todo:true,
   active:'todo',
   todoListItems: 'todo-list-items',
-  user:[],
+  user:{},
   userIs:false,
   registerUn:'',
   registerPw:'',
@@ -106,9 +106,10 @@ fetchUsers = () => {
 
 }
 onFetch = () => {
-  let todoFetch = `/api/mongodb/${this.state.user.user}todolist/`
+  console.log(this.state.user)
+  let todoFetch = `/api/mongodb/${this.state.user['user']}todolist/`
   console.log(todoFetch)
-  fetch(`/api/mongodb/${this.state.user.user}todolist/`)
+  fetch(todoFetch)
   .then(response => response.json())
   .then(data => {
     console.log('data!',data)
@@ -164,6 +165,9 @@ onSignIn = () => {
      this.setState({user:{user:un,password:pw}})
      this.setState({loggedIn:true})
      this.onFetch()
+     const userJSON = JSON.stringify(this.state.user)
+     localStorage.setItem('user', userJSON)
+
      
    }
    else{
@@ -415,12 +419,18 @@ onEdit = (index) => {
     }
   }
 componentDidMount(){
-  
   this.fetchUsers()
-  console.log(this.state.allUsers)
-  if (this.state.loggedIn){
+  const userJSON = localStorage.getItem('user')
+  const user = JSON.parse(userJSON)
+  console.log(user)
+  this.setState({user:user})
+  console.log(this.state.user)
+  if (user){
+    this.setState({loggedIn:true})
+    console.log(this.state.user)
     this.onFetch()
   }
+  console.log(this.state.allUsers)
 }
 
 todo = (todo) => {
