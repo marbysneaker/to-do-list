@@ -106,21 +106,27 @@ fetchUsers = () => {
 
 }
 onFetch = () => {
-  console.log(this.state.user)
-  let todoFetch = `/api/mongodb/${this.state.user['user']}todolist/`
-  console.log(todoFetch)
-  fetch(todoFetch)
-  .then(response => response.json())
-  .then(data => {
-    console.log('data!',data)
-    this.setState({list:data})
-  })
-  fetch(`/api/mongodb/${this.state.user.password}grocery/`)
-  .then(response => response.json())
-  .then(data => {
-    console.log('data!',data)
-    this.setState({grocery:data})
-  })
+  if (this.state.user.user !== undefined){
+    let fetchUser = this.state.user.user
+    console.log(fetchUser)
+    let todoFetch = '/api/mongodb/'+ fetchUser + 'todolist/'
+    
+    fetch(todoFetch)
+    .then(response => response.json())
+    .then(data => {
+      console.log('data!',data)
+      this.setState({list:data})
+    })
+    fetch(`/api/mongodb/${this.state.user.password}grocery/`)
+    .then(response => response.json())
+    .then(data => {
+      console.log('data!',data)
+      this.setState({grocery:data})
+      console.log(todoFetch)
+      console.log(this.state.user)
+    })
+
+  }
 }
 onRegister = () => {
   console.log('clicked')
@@ -418,18 +424,25 @@ onEdit = (index) => {
 
     }
   }
+  fetchLocal = () => {
+    const userJSON = localStorage.getItem('user')
+    const user = JSON.parse(userJSON)
+    console.log(user)
+    if (user){
+      this.setState({user:user})
+      console.log(this.state.user)
+      this.setState({loggedIn:true})
+      if (this.state.user){
+        this.onFetch()
+      }
+    }
+    
+   
+
+  }
 componentDidMount(){
   this.fetchUsers()
-  const userJSON = localStorage.getItem('user')
-  const user = JSON.parse(userJSON)
-  console.log(user)
-  this.setState({user:user})
-  console.log(this.state.user)
-  if (user){
-    this.setState({loggedIn:true})
-    console.log(this.state.user)
-    this.onFetch()
-  }
+  this.fetchLocal()
   console.log(this.state.allUsers)
 }
 
