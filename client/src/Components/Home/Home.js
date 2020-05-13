@@ -25,8 +25,7 @@ class Home extends Component{
 
 
 state = {
-  list: [{text: "Buy eggs", notes:'empty',done: false,toggle:false},
-  {text: "Buy milk", notes:'empty',done: true,toggle:false},
+  list: [
   ],
   grocery:[],
   input: '',
@@ -123,19 +122,23 @@ onRegister = () => {
   let formData = {user:user,password:pw}
   console.log(formData)
   let userLogin ={}
+  
   const userL = this.state.allUsers.map((user, index)=>{
       return userLogin[user.user] = user.password  
   })
   if(user === ''){
+    console.log('error1')
     return this.setState({registerError:userEmpty})
   }
   if(Object.keys(userLogin).includes(user)){
+    console.log('error2')
     return this.setState({registerError:userTaken})
   }
   if(pw === null){
+    console.log('error3')
     return this.setState({registerError:passwordEmpty})
   }
-    
+  if(user !== '' && !Object.keys(userLogin).includes(user) && !pw === null) {
     fetch('/api/mongodb/users/', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -149,6 +152,7 @@ onRegister = () => {
   this.setState({testRegister:formData})
   this.setState({registerUn:''})
   this.setState({registerPw:''})
+  }
 
 }
 onSignIn = () => {
@@ -516,7 +520,7 @@ render() {
           }
           <div id={(this.state.active === 'todo')? "active":"none"} className="todo" onClick={()=>this.todo('todo')}>Todo List</div>
           <div id={(this.state.active === 'grocery')? "active":"none"} className="grocery"  onClick={()=>this.todo('grocery')}> Grocery</div>
-          {(!this.state.user.user)?(
+          {(!this.state.loggedIn)?(
           
           <div className={(this.state.userIs)?('user-true'):('user-false')} id='user'> user
               <div className='register'>
@@ -546,6 +550,7 @@ render() {
               </div>
               ):(null)
               }
+            {(this.state.registerError)?<div>{this.state.registerError}</div> : null }
         </div>
 
       </header>
@@ -577,3 +582,6 @@ export default Home;
 
 
 // }
+
+// {text: "Buy eggs", notes:'empty',done: false,toggle:false},
+//   {text: "Buy milk", notes:'empty',done: true,toggle:false},
