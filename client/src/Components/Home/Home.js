@@ -354,7 +354,7 @@ onEdit = (index) => {
       ,done : false,time : dateTime}
       
       console.log(list.text)
-      fetch(`/api/mongodb/${this.state.user.user}todolist?_id=/` + list._id, {
+      fetch(`/api/mongodb/${this.state.user.user}todolist/?_id=` + list._id, {
           method: 'PUT',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(newList),
