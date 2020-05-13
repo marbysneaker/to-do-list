@@ -63,8 +63,7 @@ h1 span {
   border-style: ridge;
   border-color: #2a2b2e;
   box-shadow:  9px 9px 16px #191d24, -9px -9px 16px #3a404b;
-  overflow: visible;
-  
+  overflow: visible;  
 }
 .input-button:active{
   background-color:#29447a;
@@ -292,6 +291,11 @@ h1 span {
   height: 30vh;
   width: 100%;
 }
+.log-in{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 @media screen and (max-height: 600px){
   .todo-list-items, .todo-item{
     overflow: hidden;
@@ -352,5 +356,27 @@ h1 span {
     width: 25vw;
     right: 2vw;
 
+  }
+  #user{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    background-color: #2a2b2e;
+    width: 100vw;
+    height: 120vh;
+    font-size: 20px;
+  }
+  .register-btn,.signin-btn{
+    color: white;
+    background-color: #282c34;
+    outline: none;
+    width: 80px;
+    height: 30px;
+    border-radius: 9999em 9999em 9999em 9999em;
+    border-style: ridge;
+    border-color: #2a2b2e;
+    box-shadow:  9px 9px 16px #191d24, -9px -9px 16px #3a404b;
+    overflow: visible;  
   }
 }

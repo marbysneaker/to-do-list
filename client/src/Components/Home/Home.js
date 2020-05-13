@@ -134,11 +134,11 @@ onRegister = () => {
     console.log('error2')
     return this.setState({registerError:userTaken})
   }
-  if(pw === null){
+  if(pw === ''){
     console.log('error3')
     return this.setState({registerError:passwordEmpty})
   }
-  if(user !== '' && !Object.keys(userLogin).includes(user) && !pw === null) {
+  if(user !== '' && !Object.keys(userLogin).includes(user) && pw !== '') {
     fetch('/api/mongodb/users/', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -522,7 +522,7 @@ render() {
           <div id={(this.state.active === 'grocery')? "active":"none"} className="grocery"  onClick={()=>this.todo('grocery')}> Grocery</div>
           {(!this.state.loggedIn)?(
           
-          <div className={(this.state.userIs)?('user-true'):('user-false')} id='user'> user
+          <div className='log-in' id='user'> user
               <div className='register'>
                 <span>Username</span>
                 <br></br>
