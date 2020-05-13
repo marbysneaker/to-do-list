@@ -101,8 +101,8 @@ fetchUsers = () => {
     this.setState({allUsers:data})
     testusers.push(data)
   })
-  this.setState({allUsers:testusers})
-  console.log(this.state.allUsers)
+  this.setState({allUsers:testusers},()=> console.log(this.state.allUsers))
+  
 
 }
 onFetch = () => {
@@ -117,7 +117,7 @@ onFetch = () => {
       console.log('data!',data)
       this.setState({list:data})
     })
-    fetch(`/api/mongodb/${this.state.user.password}grocery/`)
+    fetch(`/api/mongodb/${this.state.user.user}grocery/`)
     .then(response => response.json())
     .then(data => {
       console.log('data!',data)
@@ -188,6 +188,7 @@ onSignIn = () => {
 
 }
 onClicked = () => {
+  console.log(this.state.user.user)
   if(this.state.input && this.state.todo){
       
       console.log(this.state.input)
@@ -429,12 +430,9 @@ onEdit = (index) => {
     const user = JSON.parse(userJSON)
     console.log(user)
     if (user){
-      this.setState({user:user})
+      this.setState({user:user},()=> this.onFetch())
       console.log(this.state.user)
       this.setState({loggedIn:true})
-      if (this.state.user){
-        this.onFetch()
-      }
     }
     
    
