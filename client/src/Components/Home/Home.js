@@ -172,11 +172,12 @@ onSignIn = () => {
    if (userLogin[un] === pw){
      console.log('log In')
      user[un] = pw
+     
+     const userJSON = JSON.stringify(this.state.user)
+     localStorage.setItem('user', userJSON)   
      this.setState({user:{user:un,password:pw}})
      this.setState({loggedIn:true})
-     this.onFetch()
-     const userJSON = JSON.stringify(this.state.user)
-     localStorage.setItem('user', userJSON)    
+     this.onFetch() 
    }
    else{
      console.log('incorrect password')
