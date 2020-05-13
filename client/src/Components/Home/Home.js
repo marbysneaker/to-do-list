@@ -97,7 +97,8 @@ fetchUsers = () => {
 }
 onFetch = () => {
     let fetchUser = this.state.user.user
-    let todoFetch = '/api/mongodb/'+ fetchUser + 'todolist/'   
+    let todoFetch = '/api/mongodb/'+ fetchUser + 'todolist/'  
+    console.log(todoFetch) 
     fetch(todoFetch)
     .then(response => response.json())
     .then(data => {
@@ -172,12 +173,15 @@ onSignIn = () => {
    if (userLogin[un] === pw){
      console.log('log In')
      user[un] = pw
-     
-     const userJSON = JSON.stringify(this.state.user)
-     localStorage.setItem('user', userJSON)   
-     this.setState({user:{user:un,password:pw}})
+     this.setState({user:{user:un,password:pw}},() => {
+
+       const userJSON = JSON.stringify(this.state.user)
+       localStorage.setItem('user', userJSON)   
+       this.onFetch() 
+
+     })
      this.setState({loggedIn:true})
-     this.onFetch() 
+     
    }
    else{
      console.log('incorrect password')
@@ -213,9 +217,11 @@ onClicked = () => {
           
         });
       // this.state.list.push({text:this.state.input, done: false})
-      console.log(this.state.list)
+      this.onFetch()
       this.setState({input:''})
       this.setState({textInput:''})
+      console.log(this.state.list)
+      
 
       }
     if(this.state.input && !this.state.todo){
@@ -244,13 +250,15 @@ onClicked = () => {
       console.log(this.state.grocery)
       this.setState({input:''})
       this.setState({textInput:''})
+      this.onFetch()
     }
   
 }
 
 deleteItem = (id) => {
+  console.log(id)
   if(this.state.todo){
-    fetch(`/api/mongodb/${this.state.user.user}todolist?_id=/`+ id, {
+    fetch(`/api/mongodb/${this.state.user.user}todolist/?_id=`+ id, {
       method: 'DELETE',
     })
     .then(response => response.json())
@@ -372,7 +380,7 @@ onEdit = (index) => {
       ,done : false,time : dateTime}
       
       console.log(list.text)
-      fetch('/api/mongodb/grocery/?_id=' + list._id, {
+      fetch(`/api/mongodb/${this.state.user.user}grocery/?_id=` + list._id, {
           method: 'PUT',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(newList),
