@@ -53,17 +53,8 @@ state = {
   testRegister:[],
   allUsers:[],
   loggedIn:false,
+  registerError: null
   }
-
-
-
-// userFetch = () => {
-//   const userJSON = localStorage.getItem('user')
-//   const user = JSON.parse(userJSON)
-//   if (user){
-//     this.setState({user:user })
-//   }
-// }
 
 onRegisterUn = (event) => {
   this.setState({registerUn:event.target.value})
@@ -106,37 +97,46 @@ fetchUsers = () => {
 
 }
 onFetch = () => {
-  if (this.state.user.user !== undefined){
     let fetchUser = this.state.user.user
-    console.log(fetchUser)
-    let todoFetch = '/api/mongodb/'+ fetchUser + 'todolist/'
-    
+    let todoFetch = '/api/mongodb/'+ fetchUser + 'todolist/'   
     fetch(todoFetch)
     .then(response => response.json())
     .then(data => {
       console.log('data!',data)
       this.setState({list:data})
     })
-    fetch(`/api/mongodb/${this.state.user.user}grocery/`)
+    fetch(`/api/mongodb/${fetchUser}grocery/`)
     .then(response => response.json())
     .then(data => {
       console.log('data!',data)
       this.setState({grocery:data})
-      console.log(todoFetch)
       console.log(this.state.user)
     })
-
-  }
 }
 onRegister = () => {
-  console.log('clicked')
-
+  let userTaken = 'Username taken'
+  let userEmpty = 'Username is empty'
+  let passwordEmpty = 'Password is Empty'
   let user = this.state.registerUn
   let pw = this.state.registerPw
+
   let formData = {user:user,password:pw}
   console.log(formData)
-  
-  fetch('/api/mongodb/users/', {
+  let userLogin ={}
+  const userL = this.state.allUsers.map((user, index)=>{
+      return userLogin[user.user] = user.password  
+  })
+  if(user === ''){
+    return this.setState({registerError:userEmpty})
+  }
+  if(Object.keys(userLogin).includes(user)){
+    return this.setState({registerError:userTaken})
+  }
+  if(pw === null){
+    return this.setState({registerError:passwordEmpty})
+  }
+    
+    fetch('/api/mongodb/users/', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(formData),
@@ -172,14 +172,11 @@ onSignIn = () => {
      this.setState({loggedIn:true})
      this.onFetch()
      const userJSON = JSON.stringify(this.state.user)
-     localStorage.setItem('user', userJSON)
-
-     
+     localStorage.setItem('user', userJSON)    
    }
    else{
      console.log('incorrect password')
    }
-
  }
  else{
    console.log('username does not exist')
@@ -188,8 +185,7 @@ onSignIn = () => {
 
 }
 onClicked = () => {
-  console.log(this.state.user.user)
-  if(this.state.input && this.state.todo){
+  if(this.state.input && this.state.todo && this.state.user){
       
       console.log(this.state.input)
       this.setState(prevState => ({
@@ -228,7 +224,7 @@ onClicked = () => {
        
       };
     
-      fetch('/api/mongodb/grocery/', {
+      fetch(`/api/mongodb/${this.state.user.user}grocery/`, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(formData),
@@ -259,7 +255,7 @@ deleteItem = (id) => {
     })
   }
   if(!this.state.todo){
-    fetch('/api/mongodb/grocery/?_id=' + id, {
+    fetch(`/api/mongodb/${this.state.user.user}grocery/?_id=` + id, {
       method: 'DELETE',
     })
     .then(response => response.json())
@@ -304,10 +300,8 @@ changeToDone = (index) => {
         done.done = false
         console.log(done.done)
         done.todoItemClicked = 'todo-item-false'
-      }
-      
+      }    
       this.setState({grocery:list})
-
   }
 }
 showModal = index => {
@@ -434,9 +428,6 @@ onEdit = (index) => {
       console.log(this.state.user)
       this.setState({loggedIn:true})
     }
-    
-   
-
   }
 componentDidMount(){
   this.fetchUsers()
@@ -525,6 +516,8 @@ render() {
           }
           <div id={(this.state.active === 'todo')? "active":"none"} className="todo" onClick={()=>this.todo('todo')}>Todo List</div>
           <div id={(this.state.active === 'grocery')? "active":"none"} className="grocery"  onClick={()=>this.todo('grocery')}> Grocery</div>
+          {(!this.state.user.user)?(
+          
           <div className={(this.state.userIs)?('user-true'):('user-false')} id='user'> user
               <div className='register'>
                 <span>Username</span>
@@ -537,6 +530,7 @@ render() {
                 <br></br>
                 <button type='submit' className='register-btn' onClick={() => this.onRegister()} >Register</button>
               </div>
+            
               <div className='signin'>
                 <span>Username</span>
                 <br></br>
@@ -548,8 +542,10 @@ render() {
                 <br></br>
                 <button className='signin-btn' type='submit' className='register-btn' onClick={() => this.onSignIn()}>Sign In</button>
               </div>
-          
-          </div>
+              
+              </div>
+              ):(null)
+              }
         </div>
 
       </header>
