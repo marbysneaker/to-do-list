@@ -253,7 +253,10 @@ h1 span {
   font-weight: bold;
   text-align: center;
   padding: 10px 0;
-
+  animation: bounce 0.3s;
+  animation-direction: alternate;
+  animation-duration: 2s;
+  animation-iteration-count: 3;
 }
 .grocery {
   width: 10vw;
@@ -272,7 +275,10 @@ h1 span {
   font-weight: bold;
   text-align: center;
   padding: 10px 0;
-
+  animation: bounce 0.3s;
+  animation-direction: alternate;
+  animation-duration: 2s;
+  animation-iteration-count: 3;
 }
 .grocery:hover{
   cursor: pointer;
@@ -297,11 +303,28 @@ h1 span {
   left: 0;
 }
 .todo-item {
-  animation: move-left 4s ;
+  animation: move-left 3s;
+  position: relative;
 }
-@keyframes move-left {
-  from {left: -100%;}
-  to {left:0px}
+.todo-item:nth-child(even){
+  animation: move-right 3s;
+}
+@keyframes move-left { 
+  from {left: -90vw;}
+  to {left: 0px;}
+}
+@keyframes move-right {
+  from {right: -90vw;}
+  to {right: 0px;}
+}
+@keyframes bounce {
+  0%   { transform: scale(1,1)      translateY(0); }
+  10%  { transform: scale(1.1,.9)   translateY(0); }
+  30%  { transform: scale(.9,1.1)   translateY(-70px); }
+  50%  { transform: scale(1.05,.95) translateY(0); }
+  57%  { transform: scale(1,1)      translateY(-7px); }
+  64%  { transform: scale(1,1)      translateY(0); }
+  100% { transform: scale(1,1)      translateY(0); }
 }
 @media screen and (max-height: 600px){
   .todo-list-items, .todo-item{
@@ -386,19 +409,5 @@ h1 span {
     box-shadow:  9px 9px 16px #191d24, -9px -9px 16px #3a404b;
     overflow: visible;  
   }
-  .todo-item {
-    animation: move-left 3s;
-    position: relative;
-  }
-  .todo-item:nth-child(even){
-    animation: move-right 3s;
-  }
-  @keyframes move-left { 
-    from {left: -90vw;}
-    to {left: 0px;}
-  }
-  @keyframes move-right {
-    from {right: -90vw;}
-    to {right: 0px;}
-  }
+
 }
