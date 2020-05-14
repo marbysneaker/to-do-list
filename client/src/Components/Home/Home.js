@@ -182,6 +182,7 @@ onSignIn = () => {
 
      })
      this.setState({loggedIn:true})
+     this.setState({registerError:null})
      
    }
    else{
@@ -533,35 +534,45 @@ render() {
           <div id={(this.state.active === 'grocery')? "active":"none"} className="grocery"  onClick={()=>this.todo('grocery')}> Grocery</div>
           {(!this.state.loggedIn)?(
           
-          <div className='log-in' id='user'> user
+          <div className='log-in' id='user'>
               <div className='register'>
+                <div>
                 <span>Username</span>
-                <br></br>
+                </div>
+                <div>
                 <input className='register-un' value={this.state.registerUn} onChange={this.onRegisterUn}></input>
-                <br></br>
+                </div>
+                <div>
                 <span>Password</span>
-                <br></br>
+                </div>
+                <div>
                 <input className='register-pw' value={this.state.registerPw} onChange={this.onRegisterPw}></input>
-                <br></br>
+                </div>
+                <div>
                 <button type='submit' className='register-btn' onClick={() => this.onRegister()} >Register</button>
+                </div>
               </div>
             
               <div className='signin'>
                 <span>Username</span>
-                <br></br>
+                <div>
                 <input className='signin-un' value={this.state.userN} onChange={this.onLoginUn} ></input>
-                <br></br>
+                </div>
+                <div>
                 <span>Password</span>
-                <br></br>
+                </div>
+                <div>
                 <input className='signin-pw' value={this.state.userPw} onChange={this.onLoginPw}></input>
-                <br></br>
+                </div>
+                <div>
                 <button className='signin-btn' type='submit' className='register-btn' onClick={() => this.onSignIn()}>Sign In</button>
+                </div>
               </div>
               
               </div>
               ):(null)
               }
-            {(this.state.registerError)?<div>{this.state.registerError}</div> : null }
+            {(this.state.registerError)?<div className='R-error'>{this.state.registerError}</div> : null }
         </div>
 
       </header>

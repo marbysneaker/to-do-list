@@ -292,15 +292,41 @@ h1 span {
 .grocery-2 {
   background-color: rosybrown;
 }
-#user {
-  background-color: white;
-  height: 30vh;
-  width: 100%;
-}
-.log-in{
+#user{
   position: absolute;
-  top: 0;
+  top: 15vh;
   left: 0;
+  z-index: 4;
+  background-color: #2a2b2e;
+  width: 100vw;
+  height: 120vh;
+  font-size: 20px;
+  color: aquamarine;
+}
+#user div {
+  padding: 5px;
+}
+.register-btn,.signin-btn{
+  color: white;
+  font-weight: bolder;
+  background-color: #282c34;
+  outline: none;
+  width: 80px;
+  height: 30px;
+  border-radius: 9999em 9999em 9999em 9999em;
+  border-style: solid;
+  border-color: darkslategrey;
+  box-shadow:  9px 9px 16px #191d24, -9px -9px 16px #202631;
+  overflow: visible;  
+}
+.R-error {
+  width: 100vw;
+  position: absolute;
+  bottom: 25vh;
+  font-size: 20px;
+  color: white;
+  z-index: 4;
+  text-align: center;
 }
 .todo-item {
   animation: move-left 3s;
@@ -387,27 +413,4 @@ h1 span {
     right: 2vw;
 
   }
-  #user{
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 4;
-    background-color: #2a2b2e;
-    width: 100vw;
-    height: 120vh;
-    font-size: 20px;
-  }
-  .register-btn,.signin-btn{
-    color: white;
-    background-color: #282c34;
-    outline: none;
-    width: 80px;
-    height: 30px;
-    border-radius: 9999em 9999em 9999em 9999em;
-    border-style: ridge;
-    border-color: #2a2b2e;
-    box-shadow:  9px 9px 16px #191d24, -9px -9px 16px #3a404b;
-    overflow: visible;  
-  }
-
 }
