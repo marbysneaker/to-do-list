@@ -296,6 +296,13 @@ h1 span {
   top: 0;
   left: 0;
 }
+.todo-item {
+  animation: move-left 4s ;
+}
+@keyframes move-left {
+  from {left: -100%;}
+  to {left:0px}
+}
 @media screen and (max-height: 600px){
   .todo-list-items, .todo-item{
     overflow: hidden;
@@ -378,5 +385,20 @@ h1 span {
     border-color: #2a2b2e;
     box-shadow:  9px 9px 16px #191d24, -9px -9px 16px #3a404b;
     overflow: visible;  
+  }
+  .todo-item {
+    animation: move-left 3s;
+    position: relative;
+  }
+  .todo-item:nth-child(even){
+    animation: move-right 3s;
+  }
+  @keyframes move-left { 
+    from {left: -90vw;}
+    to {left: 0px;}
+  }
+  @keyframes move-right {
+    from {right: -90vw;}
+    to {right: 0px;}
   }
 }

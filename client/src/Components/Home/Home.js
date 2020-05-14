@@ -15,9 +15,9 @@ const Emoji = props => (
 var date = new Date().toJSON().slice(5,10);
 var time = new Date().toJSON().slice(11,16)
 var dateTime = date+' '+time;
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+// function sleep(ms) {
+//   return new Promise(resolve => setTimeout(resolve, ms));
+// }
 
 
 class Home extends Component{
@@ -124,9 +124,10 @@ onRegister = () => {
   console.log(formData)
   let userLogin ={}
   
-  const userL = this.state.allUsers.map((user, index)=>{
+  userLogin = this.state.allUsers.map((user, index)=>{
       return userLogin[user.user] = user.password  
   })
+  
   if(user === ''){
     console.log('error1')
     return this.setState({registerError:userEmpty})
@@ -197,9 +198,9 @@ onClicked = () => {
   if(this.state.input && this.state.todo && this.state.user){
       
       console.log(this.state.input)
-      this.setState(prevState => ({
-        list: [...prevState.list, {text: this.state.input,notes:this.state.textInput,done:false,toggle:false,time:dateTime}]
-      }))
+      // this.setState(prevState => ({
+      //   list: [...prevState.list, {text: this.state.input,notes:this.state.textInput,done:false,toggle:false,time:dateTime}]
+      // }))
       const formData = {
         text: this.state.input,notes:this.state.textInput,done:false,toggle:false,time:dateTime
        
@@ -217,9 +218,9 @@ onClicked = () => {
           
         });
       // this.state.list.push({text:this.state.input, done: false})
-      this.onFetch()
+      
       this.setState({input:''})
-      this.setState({textInput:''})
+      this.setState({textInput:''},()=> this.onFetch())
       console.log(this.state.list)
       
 
@@ -227,9 +228,9 @@ onClicked = () => {
     if(this.state.input && !this.state.todo){
       console.log('grocery')
       console.log(this.state.input)
-      this.setState(prevState => ({
-        grocery: [...prevState.grocery, {text: this.state.input,notes:this.state.textInput,done:false,toggle:false,time:dateTime}]
-      }))
+      // this.setState(prevState => ({
+      //   grocery: [...prevState.grocery, {text: this.state.input,notes:this.state.textInput,done:false,toggle:false,time:dateTime}]
+      // }))
       const formData = {
         text: this.state.input,notes:this.state.textInput,done:false,toggle:false,time:dateTime
        
@@ -247,10 +248,11 @@ onClicked = () => {
           
         });
       // this.state.list.push({text:this.state.input, done: false})
+      
       console.log(this.state.grocery)
       this.setState({input:''})
-      this.setState({textInput:''})
-      this.onFetch()
+      this.setState({textInput:''},()=> this.onFetch())
+      
     }
   
 }
