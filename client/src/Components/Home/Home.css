@@ -288,9 +288,12 @@ h1 span {
 }
 .grocery-true {
   background-color: palevioletred;
+  
 }
 .grocery-2 {
   background-color: rosybrown;
+  animation: move-right 3s;
+  position: relative;
 }
 #user{
   position: absolute;

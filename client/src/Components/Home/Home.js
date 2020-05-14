@@ -117,6 +117,7 @@ onRegister = () => {
   let userTaken = 'Username taken'
   let userEmpty = 'Username is empty'
   let passwordEmpty = 'Password is Empty'
+  let registered = 'Registered!'
   let user = this.state.registerUn
   let pw = this.state.registerPw
 
@@ -152,6 +153,7 @@ onRegister = () => {
 
   });
   this.setState({testRegister:formData})
+  this.setState({registerError:registered})
   this.setState({registerUn:''})
   this.setState({registerPw:''})
   }
@@ -182,7 +184,7 @@ onSignIn = () => {
 
      })
      this.setState({loggedIn:true})
-     this.setState({registerError:null})
+     this.setState({registerError:null })
      
    }
    else{
